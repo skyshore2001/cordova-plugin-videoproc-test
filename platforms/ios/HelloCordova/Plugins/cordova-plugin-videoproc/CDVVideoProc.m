@@ -14,7 +14,7 @@
 
 + (NSString*)cordovaVersion
 {
-    return CDV_VERSION;
+    return CDV_VERSION;	
 }
 
 @end

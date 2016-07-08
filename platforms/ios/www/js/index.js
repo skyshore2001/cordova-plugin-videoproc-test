@@ -49,3 +49,22 @@ var app = {
 };
 
 app.initialize();
+
+function testit()
+{
+alert('will call videoproc.compose');
+	window.videoproc.compose('1.mp4', {
+		items: [ ]
+	}, onOk, onFail);
+}
+
+function onOk(file)
+{
+alert('ok: newfile=' + file);
+}
+
+function onFail(msg)
+{
+alert('fail: ' + msg);
+}
+
