@@ -1,0 +1,32 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-videoproc": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-videoproc/www/videoproc.js",
+            "id": "cordova-plugin-videoproc.videoproc",
+            "pluginId": "cordova-plugin-videoproc",
+            "clobbers": [
+                "videoproc"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-videoproc": "1.0.0",
+        "cordova-plugin-whitelist": "1.2.2"
+    }
+}
