@@ -4,7 +4,18 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"VideoProc\"><param name=\"browser-package\" value=\"VideoProc\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
     "installed_plugins": {
         "cordova-plugin-videoproc": {
@@ -23,6 +34,12 @@
             "clobbers": [
                 "videoproc"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-videoproc/src/browser/VideoProcProxy.js",
+            "id": "cordova-plugin-videoproc.VideoProcProxy",
+            "pluginId": "cordova-plugin-videoproc",
+            "runs": true
         }
     ],
     "plugin_metadata": {

@@ -15,4 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <feature name="VideoProc">
+        <param name="browser-package" value="VideoProc" />
+    </feature>
 </widget>

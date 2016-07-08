@@ -7,6 +7,12 @@ module.exports = [
         "clobbers": [
             "videoproc"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-videoproc/src/browser/VideoProcProxy.js",
+        "id": "cordova-plugin-videoproc.VideoProcProxy",
+        "pluginId": "cordova-plugin-videoproc",
+        "runs": true
     }
 ];
 module.exports.metadata = 
