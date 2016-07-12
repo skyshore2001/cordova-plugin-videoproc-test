@@ -10,7 +10,7 @@
     "cordova-plugin-videoproc": {
         "source": {
             "type": "local",
-            "path": "..\\cordova-plugin-videoproc"
+            "path": "cordova-plugin-videoproc"
         },
         "is_top_level": true,
         "variables": {}

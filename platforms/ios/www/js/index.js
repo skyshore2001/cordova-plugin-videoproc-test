@@ -52,19 +52,22 @@ app.initialize();
 
 function testit()
 {
-alert('will call videoproc.compose');
-	window.videoproc.compose('1.mp4', {
-		items: [ ]
-	}, onOk, onFail);
-}
+	var opt = {
+		items: [
+			{type: 'audio', value: 'cdvfile://localhost/temporary/1.mp3'}, // 音频
+			{type: 'image', value: 'cdvfile://localhost/temporary/1.png'}, // 图片
+			{type: 'text', value: '配音: 张三丰 - 网友1', from: 15.0, to: 16.0, x: 120, y: 150}, // 文本
+			{type: 'text', value: '配音: 张无忌 - 网友2', from: 16.0, to: 17.0, x: 120, y: 150} // 文本2
+		]
+	};
 
-function onOk(file)
-{
-alert('ok: newfile=' + file);
-}
+	videoproc.compose('cdvfile://localhost/temporary/1.mp4', opt, onSuccess, onFail);
+	
+	function onSuccess(file) {
+		alert('generate file: ' + file);
+	}
 
-function onFail(msg)
-{
-alert('fail: ' + msg);
+	function onFail(msg) {
+		alert('fail: ' + msg);
+	}
 }
-

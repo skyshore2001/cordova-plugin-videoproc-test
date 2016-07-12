@@ -18,10 +18,10 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-videoproc": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-videoproc": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
@@ -43,7 +43,7 @@
         }
     ],
     "plugin_metadata": {
-        "cordova-plugin-videoproc": "1.0.0",
-        "cordova-plugin-whitelist": "1.2.2"
+        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-plugin-videoproc": "1.0.0"
     }
 }
