@@ -1,0 +1,38 @@
+psrc=plugins/cordova-plugin-videoproc/src
+pwww=plugins/cordova-plugin-videoproc/www
+
+all: android browser ios
+
+#### android
+
+android: $(psrc)/android/VideoProc.java \
+	$(pwww)/videoproc.js
+
+$(psrc)/android/%: platforms/android/src/com/oliveche/videoproc/%
+	cp $< $@
+
+$(pwww)/%: platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/%
+	cp $< $@
+
+#### browser
+
+browser: $(psrc)/browser/VideoProcProxy.js \
+	$(pwww)/videoproc.js
+
+$(psrc)/browser/%: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%
+	cp $< $@
+
+$(pwww)/%: platforms/browser/www/plugins/cordova-plugin-videoproc/www/%
+	cp $< $@
+
+#### ios
+
+ios: $(psrc)/ios/CDVVideoProc.m \
+	$(psrc)/ios/CDVVideoProc.h \
+	$(pwww)/videoproc.js
+
+$(psrc)/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
+	cp $< $@
+
+$(pwww)/%: platforms/ios/www/plugins/cordova-plugin-videoproc/www/%
+	cp $< $@

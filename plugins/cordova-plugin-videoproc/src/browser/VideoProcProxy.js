@@ -2,11 +2,11 @@ var browser = require('cordova/platform');
 var cordova = require('cordova');
 
 module.exports = {
-    compose: function (videoFile, opt, success, error) {
+    compose: function (onSuccess, onError, args) {
         setTimeout(function () {
-			console.log(videoFile);
-			console.log(opt);
-            success(videoFile);
+			var videoFile = args[0];
+			var opt = args[1];
+            onSuccess(videoFile);
         }, 0);
     }
 };
