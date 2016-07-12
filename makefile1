@@ -6,7 +6,8 @@ all: android browser ios
 #### android
 
 android: platforms/android/src/com/oliveche/videoproc/VideoProc.java \
-	platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/videoproc.js
+	platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
+	platforms/android/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
 
 platforms/android/src/com/oliveche/videoproc/%: $(psrc)/android/%
 	cp $< $@
@@ -14,10 +15,14 @@ platforms/android/src/com/oliveche/videoproc/%: $(psrc)/android/%
 platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
 	tool/make_js.pl $< $@
 
+platforms/android/platform_www/plugins/cordova-plugin-videoproc/www/%: : $(pwww)/%
+	tool/make_js.pl $< $@
+
 #### browser
 
 browser: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/VideoProcProxy.js \
-	platforms/browser/www/plugins/cordova-plugin-videoproc/www/videoproc.js
+	platforms/browser/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
+	platforms/browser/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
 
 platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%: $(psrc)/browser/%
 	tool/make_js.pl $< $@
@@ -25,14 +30,25 @@ platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%: $(psrc)/br
 platforms/browser/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
 	tool/make_js.pl $< $@
 
+platforms/browser/platform_www/plugins/cordova-plugin-videoproc/src/browser/%: $(psrc)/browser/%
+	tool/make_js.pl $< $@
+
+platforms/browser/platform_www/plugins/cordova-plugin-videoproc/www/%: : $(pwww)/%
+	tool/make_js.pl $< $@
+
 #### ios
 
 ios: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/CDVVideoProc.m \
 	platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/CDVVideoProc.h \
-	platforms/ios/www/plugins/cordova-plugin-videoproc/www/videoproc.js
+	platforms/ios/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
+	platforms/ios/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
 
 platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%: $(psrc)/ios/%
 	cp $< $@
 
 platforms/ios/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
 	tool/make_js.pl $< $@
+
+platforms/ios/platform_www/plugins/cordova-plugin-videoproc/www/%: : $(pwww)/%
+	tool/make_js.pl $< $@
+

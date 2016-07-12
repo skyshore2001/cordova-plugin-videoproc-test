@@ -28,7 +28,7 @@ if (/^cordova\.define/) {
 	s/\s*\}\);\s*$//s;
 }
 else {
-	$_ = "cordova.define(\"${PLUGIN}.${base}\", function(require, exports, module) { " . $_ . "\n});\n";
+	$_ = "cordova.define(\"${PLUGIN}.${base}\", function(require, exports, module) {\n" . $_ . "\n});\n";
 }
 open OUT, ">", $f2;
 print OUT $_;
