@@ -1,20 +1,23 @@
 #!/bin/perl
+use strict;
+use warnings;
+
 =pod
 make_js.pl in.js out.js
 如果没有包装，则加包装；否则去包装
 
 =cut
 
-$PLUGIN = 'cordova-plugin-videoproc';
+my $PLUGIN = 'cordova-plugin-videoproc';
 
-$f = $ARGV[0] or die '*** require js file';
-$f2 = $ARGV[1] or die '*** require js out file';
+my $f = $ARGV[0] or die '*** require js file';
+my $f2 = $ARGV[1] or die '*** require js out file';
 
-if (! $f =~ /(\w+)\.js$/)
+if ($f !~ /(\w+)\.js$/)
 {
 	die "*** bad file $f\n";
 }
-$base = $1;
+my $base = $1;
 
 undef $/;
 open IN, $f;
