@@ -12,7 +12,7 @@ platforms/android/src/com/oliveche/videoproc/%: $(psrc)/android/%
 	cp $< $@
 
 platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
-	cp $< $@
+	tool/make_js.pl $< $@
 
 #### browser
 
@@ -20,10 +20,10 @@ browser: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/Vide
 	platforms/browser/www/plugins/cordova-plugin-videoproc/www/videoproc.js
 
 platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%: $(psrc)/browser/%
-	cp $< $@
+	tool/make_js.pl $< $@
 
 platforms/browser/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
-	cp $< $@
+	tool/make_js.pl $< $@
 
 #### ios
 
@@ -35,4 +35,4 @@ platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%: $(psrc)/ios/%
 	cp $< $@
 
 platforms/ios/www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
-	cp $< $@
+	tool/make_js.pl $< $@
