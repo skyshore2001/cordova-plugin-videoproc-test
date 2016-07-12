@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-videoproc.videoproc", function(require, exports, module) {
 var argscheck = require('cordova/argscheck'),
     channel = require('cordova/channel'),
     utils = require('cordova/utils'),
