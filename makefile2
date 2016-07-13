@@ -27,8 +27,10 @@ clean-android:
 $(plugin)/src/android/%: platforms/android/src/com/oliveche/videoproc/%
 	$(RULE_CP)
 
+ifeq ($(MAKECMDGOALS),android)
 www/%: platforms/android/assets/www/%
 	$(RULE_CP)
+endif
 
 #### browser
 
@@ -45,8 +47,10 @@ clean-browser:
 $(plugin)/src/browser/%.js: platforms/browser/www/$(plugin)/src/browser/%.js
 	$(RULE_JS)
 
+ifeq ($(MAKECMDGOALS),browser)
 www/%: platforms/browser/www/%
 	$(RULE_CP)
+endif
 
 #### ios
 
