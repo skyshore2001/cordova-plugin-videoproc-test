@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-				<meta charset="utf-8">
+        <meta charset="utf-8">
         <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-eval' 'unsafe-inline'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -9,8 +9,8 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Hello World</title>
     </head>
-    <body>
-        <div class="app">
+    <body style="background: initial;">
+        <div class="">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
@@ -20,8 +20,10 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
-<div style="margin: 100px">
-	<button onclick="testit()">test it</button>
+<div style="margin: 30px 10px">
+    <p>video: <input id="txtVideo" type="text" value="cdvfile://localhost/temporary/1.mp4" style="width:100%"></p>
+    <p>audio: <input id="txtAudio" type="text" value="cdvfile://localhost/temporary/1.mp3" style="width:100%"></p>
+	<p><button onclick="testit()">test it</button></p>
 </div>
 
     </body>

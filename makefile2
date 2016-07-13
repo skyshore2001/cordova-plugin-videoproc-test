@@ -15,6 +15,8 @@ endef
 #### android
 
 ANDROID_FILES=\
+	www/index.html \
+	www/js/index.js \
 	$(plugin)/src/android/VideoProc.java \
 
 android: $(ANDROID_FILES)
@@ -25,9 +27,14 @@ clean-android:
 $(plugin)/src/android/%: platforms/android/src/com/oliveche/videoproc/%
 	$(RULE_CP)
 
+www/%: platforms/android/assets/www/%
+	$(RULE_CP)
+
 #### browser
 
 BROWSER_FILES=\
+	www/index.html \
+	www/js/index.js \
 	$(plugin)/src/browser/VideoProcProxy.js
 
 browser: $(BROWSER_FILES)
@@ -38,9 +45,14 @@ clean-browser:
 $(plugin)/src/browser/%.js: platforms/browser/www/$(plugin)/src/browser/%.js
 	$(RULE_JS)
 
+www/%: platforms/browser/assets/www/%
+	$(RULE_CP)
+
 #### ios
 
 IOS_FILES=\
+	www/index.html \
+	www/js/index.js \
 	$(plugin)/src/ios/CDVVideoProc.m \
 	$(plugin)/src/ios/CDVVideoProc.h \
 
@@ -50,5 +62,8 @@ clean-ios:
 	-rm -rf $(IOS_FILES)
 
 $(plugin)/src/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
+	$(RULE_CP)
+
+www/%: platforms/ios/assets/www/%
 	$(RULE_CP)
 
