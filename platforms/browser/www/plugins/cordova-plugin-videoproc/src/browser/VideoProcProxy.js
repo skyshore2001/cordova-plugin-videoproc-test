@@ -1,3 +1,4 @@
+cordova.define("cordova-plugin-videoproc.VideoProcProxy", function(require, exports, module) {
 var browser = require('cordova/platform');
 var cordova = require('cordova');
 
@@ -12,3 +13,4 @@ module.exports = {
 };
 
 require("cordova/exec/proxy").add("VideoProc", module.exports);
+});
