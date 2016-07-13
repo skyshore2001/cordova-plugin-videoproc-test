@@ -24,7 +24,7 @@ open IN, $f;
 $_ = <>;
 close IN;
 if (/^cordova\.define/) {
-	s/^.*?\{ //s;
+	s/^.*?\{\s*//s;
 	s/\s*\}\);\s*$//s;
 }
 else {

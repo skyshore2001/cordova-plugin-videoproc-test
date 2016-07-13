@@ -1,27 +1,54 @@
-psrc=plugins/cordova-plugin-videoproc/src
-pwww=plugins/cordova-plugin-videoproc/www
+plugin=plugins/cordova-plugin-videoproc
 
 all: android browser ios
 
+clean: clean-android clean-browser clean-ios
+
+define RULE_CP
+cp $< $@
+endef
+
+define RULE_JS
+tool/make_js.pl $< $@
+endef
+
 #### android
 
-android: $(psrc)/android/VideoProc.java
+ANDROID_FILES=\
+	$(plugin)/src/android/VideoProc.java \
 
-$(psrc)/android/%: platforms/android/src/com/oliveche/videoproc/%
-	cp $< $@
+android: $(ANDROID_FILES)
+
+clean-android:
+	-rm -rf $(ANDROID_FILES)
+
+$(plugin)/src/android/%: platforms/android/src/com/oliveche/videoproc/%
+	$(RULE_CP)
 
 #### browser
 
-browser: $(psrc)/browser/VideoProcProxy.js
+BROWSER_FILES=\
+	$(plugin)/src/browser/VideoProcProxy.js
 
-$(psrc)/browser/%: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%
-	cp $< $@
+browser: $(BROWSER_FILES)
+
+clean-browser:
+	-rm -rf $(BROWSER_FILES)
+
+$(plugin)/src/browser/%.js: platforms/browser/www/$(plugin)/src/browser/%.js
+	$(RULE_JS)
 
 #### ios
 
-ios: $(psrc)/ios/CDVVideoProc.m \
-	$(psrc)/ios/CDVVideoProc.h
+IOS_FILES=\
+	$(plugin)/src/ios/CDVVideoProc.m \
+	$(plugin)/src/ios/CDVVideoProc.h \
 
-$(psrc)/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
-	cp $< $@
+ios: $(IOS_FILES)
+
+clean-ios:
+	-rm -rf $(IOS_FILES)
+
+$(plugin)/src/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
+	$(RULE_CP)
 
