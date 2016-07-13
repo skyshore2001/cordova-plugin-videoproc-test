@@ -45,7 +45,7 @@ clean-browser:
 $(plugin)/src/browser/%.js: platforms/browser/www/$(plugin)/src/browser/%.js
 	$(RULE_JS)
 
-www/%: platforms/browser/assets/www/%
+www/%: platforms/browser/www/%
 	$(RULE_CP)
 
 #### ios
@@ -64,6 +64,6 @@ clean-ios:
 $(plugin)/src/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
 	$(RULE_CP)
 
-www/%: platforms/ios/assets/www/%
+www/%: platforms/ios/www/%
 	$(RULE_CP)
 

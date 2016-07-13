@@ -13,22 +13,19 @@
 	if (videoFile != nil && [videoFile length] == 0) {
 		NSString *errstr = @"找不到文件";
 		CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errstr];
-		[self.commandDelegate sendPluginResult:result callbackId:self.currentCallbackId];
+		[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
 		return;
 	}
-	
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 
-	/*
-	[self.commandDelegate runInBackground:^{
-        NSString* payload = nil;
-        // Some blocking logic...
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:payload];
-        // The sendPluginResult method is thread-safe.
+    
+    [self.commandDelegate runInBackground:^{
+	
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
+
+        sleep(2);
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
-	*/
+
 }
 
 @end
