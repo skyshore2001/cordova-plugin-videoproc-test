@@ -3,11 +3,15 @@ pwww=plugins/cordova-plugin-videoproc/www
 
 all: android browser ios
 
-#### android
+clean: 
+	-rm -rf $(ANDROID_FILES) $(BROWSER_FILES) $(IOS_FILES)
 
-android: platforms/android/src/com/oliveche/videoproc/VideoProc.java \
+#### android
+ANDROID_FILES=platforms/android/src/com/oliveche/videoproc/VideoProc.java \
 	platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
 	platforms/android/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
+
+android: $(ANDROID_FILES)
 
 platforms/android/src/com/oliveche/videoproc/%: $(psrc)/android/%
 	cp $< $@
@@ -20,9 +24,11 @@ platforms/android/platform_www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
 
 #### browser
 
-browser: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/VideoProcProxy.js \
+BROWSER_FILES: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/VideoProcProxy.js \
 	platforms/browser/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
 	platforms/browser/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
+
+browser: $(BROWSER_FILES)
 
 platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%: $(psrc)/browser/%
 	tool/make_js.pl $< $@
@@ -38,10 +44,12 @@ platforms/browser/platform_www/plugins/cordova-plugin-videoproc/www/%: $(pwww)/%
 
 #### ios
 
-ios: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/CDVVideoProc.m \
+IOS_FILES=platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/CDVVideoProc.m \
 	platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/CDVVideoProc.h \
 	platforms/ios/www/plugins/cordova-plugin-videoproc/www/videoproc.js \
 	platforms/ios/platform_www/plugins/cordova-plugin-videoproc/www/videoproc.js
+
+ios: $(IOS_FILES)
 
 platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%: $(psrc)/ios/%
 	cp $< $@

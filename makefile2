@@ -5,34 +5,23 @@ all: android browser ios
 
 #### android
 
-android: $(psrc)/android/VideoProc.java \
-	$(pwww)/videoproc.js
+android: $(psrc)/android/VideoProc.java
 
 $(psrc)/android/%: platforms/android/src/com/oliveche/videoproc/%
 	cp $< $@
 
-$(pwww)/%: platforms/android/assets/www/plugins/cordova-plugin-videoproc/www/%
-	tool/make_js.pl $< $@
-
 #### browser
 
-browser: $(psrc)/browser/VideoProcProxy.js \
-	$(pwww)/videoproc.js
+browser: $(psrc)/browser/VideoProcProxy.js
 
 $(psrc)/browser/%: platforms/browser/www/plugins/cordova-plugin-videoproc/src/browser/%
 	cp $< $@
 
-$(pwww)/%: platforms/browser/www/plugins/cordova-plugin-videoproc/www/%
-	tool/make_js.pl $< $@
-
 #### ios
 
 ios: $(psrc)/ios/CDVVideoProc.m \
-	$(psrc)/ios/CDVVideoProc.h \
-	$(pwww)/videoproc.js
+	$(psrc)/ios/CDVVideoProc.h
 
 $(psrc)/ios/%: platforms/ios/HelloCordova/Plugins/cordova-plugin-videoproc/%
 	cp $< $@
 
-$(pwww)/%: platforms/ios/www/plugins/cordova-plugin-videoproc/www/%
-	tool/make_js.pl $< $@
