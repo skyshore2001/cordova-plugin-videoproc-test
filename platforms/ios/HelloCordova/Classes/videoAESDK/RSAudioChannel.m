@@ -10,9 +10,9 @@
 
 @implementation RSAudioChannel
 
-- (kMedioType)type
+- (kMediaType)type
 {
-    return kMediaTypeAudio;
+    return kMediaType_Audio;
 }
 
 - (NSString *)description

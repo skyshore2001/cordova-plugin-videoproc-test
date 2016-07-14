@@ -47,7 +47,7 @@
     self.exportSession.audioMix = self.audioMix;
     __block NSTimer * timer  = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(updateExportProgress:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-    WeakSelf wself = self;
+    __weak RSExportSession * wself = self;
     [self.exportSession exportAsynchronouslyWithCompletionHandler:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             if (wself.exportSession.status == AVAssetExportSessionStatusCompleted) {
@@ -59,7 +59,6 @@
                 BlockCallWithOneArg(faildCb, wself.exportSession.error);
                 [timer invalidate];
                 timer = nil;
-
             }
         });
         

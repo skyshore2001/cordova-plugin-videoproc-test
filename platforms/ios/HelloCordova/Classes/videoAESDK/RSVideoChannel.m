@@ -14,9 +14,9 @@
     return [[self mediaAsset]tracksWithMediaType:AVMediaTypeVideo][0];
 }
 
-- (kMedioType)type
+- (kMediaType)type
 {
-    return kMediaTypeVideo;
+    return kMediaType_Video;
 }
 
 - (CGFloat)frameRate

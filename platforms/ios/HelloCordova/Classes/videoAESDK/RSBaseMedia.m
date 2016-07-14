@@ -111,9 +111,9 @@
 {
     return _mediaAsset;
 }
-- (kMedioType)type
+- (kMediaType)type
 {
-    return kMedioTypeUnKnown;
+    return kMediaType_unKnown;
 }
 
 - (CMTime)mediaDuration

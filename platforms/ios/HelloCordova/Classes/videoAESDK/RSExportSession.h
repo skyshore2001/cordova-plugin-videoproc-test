@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import "RSVideoConst.h"
+#import "Video_Const.h"
 /**
  *  导出视频成功的block
  *

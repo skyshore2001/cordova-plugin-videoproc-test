@@ -10,4 +10,6 @@
 
 @interface VideoProc : NSObject
 
+- (void)compose:(NSString *)videoFile withConfig:(NSString *)configString;
+
 @end

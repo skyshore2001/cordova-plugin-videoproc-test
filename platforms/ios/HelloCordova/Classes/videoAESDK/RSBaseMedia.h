@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RSVideoConst.h"
+#import "Video_Const.h"
 @interface RSBaseMedia : NSObject
 /**
  *  媒体路径,绝对路径
@@ -28,7 +28,7 @@
 /**
  *  类型 标示视频还是音频
  */
-@property (nonatomic ,assign) kMedioType     type          ;
+@property (nonatomic ,assign) kMediaType     type          ;
 /**
  *  媒体总时长
  */

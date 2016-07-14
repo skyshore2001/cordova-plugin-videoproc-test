@@ -15,7 +15,6 @@
     if(!self)return nil;
     self.video = [[RSVideoChannel alloc]initWithALAssertUrl:url];
     self.audio = [[RSAudioChannel alloc]initWithALAssertUrl:url];
-    [self _setDefaultConfig];
     return self;
 }
 - (instancetype)initWithVideo:(RSVideoChannel *)video withAudio:(RSAudioChannel *)audio
@@ -24,35 +23,17 @@
     if(!self)return nil;
     self.video = video;
     self.audio = audio;
-    [self _setDefaultConfig];
     return self;
 }
 
-- (instancetype)initWithVideoComposition:(AVMutableComposition *)mixCompostion
-{
-    self = [super init];
-    if(!self)return nil;
-    self.video = [[RSVideoChannel alloc]initWithALAsset:mixCompostion];
-    self.audio = [[RSAudioChannel alloc]initWithALAsset:mixCompostion];
-    [self _setDefaultConfig];
-    return self;
-}
 - (instancetype)initWithUrlString:(NSString *)urlString
 {
     self = [super init];
     if(!self)return nil;
     self.video = [[RSVideoChannel alloc]initWithMediaPath:urlString];
     self.audio = [[RSAudioChannel alloc]initWithMediaPath:urlString];
-    [self _setDefaultConfig]; 
     return self;
 }
-- (void)_setDefaultConfig
-{
-    self.volume = 1.0f;
-    self.transitionStyle = TransitionStyle_none;
-    self.transitionDuration = 0.0;
-}
-
 - (CMTime)duration
 {
     return self.video.mediaDuration;
@@ -61,17 +42,5 @@
 {
     return [self.video natureSize];
 }
-- (kPlayerFrameSizeType)frameType
-{
-    if((int)[self videoFrameSize].height == 480){
-        return kPlayerFrameType480P;
-    }else if ((int)[self videoFrameSize].height==540){
-        return kPlayerFrameType540P;
-    }else if ((int)[self videoFrameSize].height==720){
-        return kPlayerFrameType720P;
-    }else if ((int)[self videoFrameSize].height==1080){
-        return kPlayerFrameType1080P;
-    }else
-        return kPlayerFrameTypeUnkown;
-}
+
 @end
