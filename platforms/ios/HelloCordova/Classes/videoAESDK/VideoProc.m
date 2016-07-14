@@ -24,25 +24,30 @@
 
 - (void)compose:(NSString *)videoFile withConfig:(NSString *)configJson
 {
-    NSArray * config  = [self _parseJsonString:configJson];
-    if (config.count==0) {
+    self.configInfoArray  = [self _parseJsonString:configJson];
+    if (self.configInfoArray.count==0) {
         NSLog(@"parse json String error");
         return;
     }
     self.videoFile = videoFile;
     self.mainVideoChunk = [[RSChunk alloc]initWithUrlString:videoFile];
-    [self _mixVideoAndAudio];
+    [self _mixVideoAndAudioNeedMix:YES];
     [self _doexport]; 
     
 }
-- (void)_mixVideoAndAudio
+- (void)_mixVideoAndAudioNeedMix:(BOOL)needMix
 {
     self.mixComposition = [AVMutableComposition composition];
     AVMutableCompositionTrack * videoTrack = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:self.mainVideoChunk.video.videoTrack atTime:kCMTimeZero error:nil];
+    if (needMix) {
+        AVMutableCompositionTrack * orignAudioTrack = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+        [orignAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:self.mainVideoChunk.audio.audioTrack atTime:kCMTimeZero error:nil];
+    }
     for (ConfigItem *item in self.configInfoArray) {
         if (item.type == kMediaType_Audio) {
-            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
+            NSString * audioString = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
+            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:audioString];
             AVMutableCompositionTrack * audioTrack  = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
         }
@@ -55,7 +60,7 @@
 
 - (void)_doexport
 {
-    NSString * videoPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory,NSAllDomainsMask, YES)[0];
+    NSString * videoPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSAllDomainsMask, YES)[0];
     videoPath = [videoPath stringByAppendingPathComponent:@"video.mp4"];
     NSFileManager * fileManager = [NSFileManager defaultManager];
     if([fileManager fileExistsAtPath:videoPath])[fileManager removeItemAtPath:videoPath error:nil];
@@ -64,7 +69,6 @@
                                                      withOutPutURL:fileUrl
                                               withVideoComposition:self.videoComposition
                                                       withAudioMix:nil];
-    
     [self.exportSession doExportWithProcess:^(CGFloat process) {
         NSLog(@"process = %f",process);
     } withSuccess:^(AVAssetExportSession *exportSession) {
@@ -109,6 +113,5 @@
         return kMediaType_Text;
     }
     return kMediaType_unKnown;
-    
 }
 @end

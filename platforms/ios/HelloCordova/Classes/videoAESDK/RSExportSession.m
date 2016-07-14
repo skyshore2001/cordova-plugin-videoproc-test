@@ -44,7 +44,6 @@
     self.exportSession.outputURL = self.outPutUrl;
     self.exportSession.shouldOptimizeForNetworkUse = YES;
     self.exportSession.videoComposition = self.videoComposition;
-    self.exportSession.audioMix = self.audioMix;
     __block NSTimer * timer  = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(updateExportProgress:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
     __weak RSExportSession * wself = self;
