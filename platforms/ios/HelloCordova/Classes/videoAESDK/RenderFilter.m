@@ -10,6 +10,7 @@
 #import "Video_Const.h"
 #import "ConfigItem.h"
 #import "Uitiltes.h"
+#import "GLModel.h"
 NSString *const kVertShaderString = SHADER_STRING
 (
  attribute vec4 position;
@@ -46,6 +47,8 @@ GLfloat quadVertexData [] = {
 {
     CVOpenGLESTextureRef destTexture;
     CVOpenGLESTextureRef foregroundTexture;
+    NSMutableArray * programeSlots;
+
 }
 @property(nonatomic ,strong)NSMutableArray  *    configItemsArray;
 @property(nonatomic ,strong)NSMutableArray  *    picTureArray ;
@@ -65,6 +68,7 @@ GLfloat quadVertexData [] = {
     filterTextureCoordinateAttribute = [filterProgram attributeIndex:@"inputTextureCoordinate"];
     glEnableVertexAttribArray(filterPositionAttribute);
     glEnableVertexAttribArray(filterTextureCoordinateAttribute);
+    programeSlots = [NSMutableArray array];
     return self;
 }
 
@@ -75,20 +79,36 @@ GLfloat quadVertexData [] = {
     for (int index = 0; index <self.configItemsArray.count; index++) {
         ConfigItem * item = self.configItemsArray[index];
         if (item.type == kMediaType_Picture) {
-            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
+#warning test
+            NSString *path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"png"];
+            UIImage * image = [UIImage imageWithContentsOfFile:path];
             CVPixelBufferRef pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
-            CVOpenGLESTextureRef textureBuffer = [self bgraTextureForPixelBuffer:pixelBuffer];
-            [self.picTureArray addObject:(__bridge id _Nonnull)(textureBuffer)];
+            CVOpenGLESTextureRef texture = [self bgraTextureForPixelBuffer:pixelBuffer];
+            //programe 相关
+            GLuint programe = [filterProgram compileVShaderString:kVertShaderString withFShaderString:kFragShaderString];
+            GLuint position =  glGetAttribLocation(programe, "position");
+            GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
+            GLuint sample = glGetUniformLocation(programe, "Sampler");
+            GLModel * model = [[GLModel alloc]init];
+            model.glPrograme = programe;
+            model.glPositionSlot = position;
+            model.sampleSlot = sample;
+            model.glTextureSlot = textureSlot;
+            model.pixelBuffer = pixelBuffer;
+            model.texture = texture;
+            glEnableVertexAttribArray(model.glPositionSlot);
+            glEnableVertexAttribArray(model.glTextureSlot);
+            [programeSlots addObject:model];
         }else if(item.type ==kMediaType_Text){
             
         }
-        
     }
 }
 - (void)renderPixelBuffer:(CVPixelBufferRef)destinationPixelBuffer usingForegroundSourceBuffer:(CVPixelBufferRef)foregroundPixelBuffer withComposition:(CMTime)compositionTime winthConfigItem:(NSArray *)configItems
 {
     [self _handleConfigItems:configItems];
     [self setProgram];
+    glEnable(GL_BLEND);
     glBindFramebuffer(GL_FRAMEBUFFER, offscreenBufferHandle);
     [self renderObjectWithPixel:destinationPixelBuffer];
     foregroundTexture = NULL;
@@ -104,6 +124,31 @@ GLfloat quadVertexData [] = {
         glClearColor(0.0, 0.0, 0.0, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
         [self renderWithTime:compositionTime];
+    }
+    if (programeSlots.count!=0) {
+        for (int index = 0 ; index < programeSlots.count; index++) {
+            GLModel * model = programeSlots[index];
+            ConfigItem * item = self.configItemsArray[index];
+            glUseProgram(model.glPrograme);
+            if (model.pixelBuffer) {
+                CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
+                glActiveTexture(GL_TEXTURE1+index);
+                glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
+                [self setDefaultTextureAttributes];
+                 glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
+                glUniform1i(model.sampleSlot,1+index);
+                glVertexAttribPointer(model.glTextureSlot, 2, GL_FLOAT, 0, 0,[[self class] textureCoordinatesForRotation:kGPUImageNoRotation]);
+                glEnableVertexAttribArray(model.glTextureSlot);
+                glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+                glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
+                glEnableVertexAttribArray(model.glPositionSlot);
+                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+                if (textTexture!=NULL) {
+                    CFRelease(textTexture);
+                    textTexture = NULL;
+                }
+            }
+        }
     }
 bail:
     if(foregroundTexture !=NULL){

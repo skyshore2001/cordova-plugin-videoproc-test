@@ -3,6 +3,10 @@
                 {
                     "type": "audio",
                     "value": "1.mp3"
-                }
+                },
+              {
+              "type": "image",
+              "value": "1.png"
+              }
             ]
 }
