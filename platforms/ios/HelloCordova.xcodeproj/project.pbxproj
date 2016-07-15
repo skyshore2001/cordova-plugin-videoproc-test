@@ -59,6 +59,7 @@
 		C617AD0A1D38AE3E000C7A63 /* Uitiltes.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD091D38AE3E000C7A63 /* Uitiltes.m */; settings = {ASSET_TAGS = (); }; };
 		C617AD0E1D38BEAE000C7A63 /* GLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD0D1D38BEAE000C7A63 /* GLModel.m */; settings = {ASSET_TAGS = (); }; };
 		C617AD101D38C62E000C7A63 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = C617AD0F1D38C62E000C7A63 /* 1.png */; settings = {ASSET_TAGS = (); }; };
+		C617AD141D38F4F4000C7A63 /* RSMVString.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD131D38F4F4000C7A63 /* RSMVString.m */; settings = {ASSET_TAGS = (); }; };
 		C61942541D37ECEB0032E2BC /* RSVideoCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */; settings = {ASSET_TAGS = (); }; };
 		C619425A1D37F0840032E2BC /* RSVideoCompositior.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942591D37F0840032E2BC /* RSVideoCompositior.m */; settings = {ASSET_TAGS = (); }; };
 		C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C619425B1D37F0EE0032E2BC /* CoreVideo.framework */; };
@@ -158,6 +159,8 @@
 		C617AD0C1D38BEAE000C7A63 /* GLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLModel.h; sourceTree = "<group>"; };
 		C617AD0D1D38BEAE000C7A63 /* GLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLModel.m; sourceTree = "<group>"; };
 		C617AD0F1D38C62E000C7A63 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		C617AD121D38F4F4000C7A63 /* RSMVString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSMVString.h; sourceTree = "<group>"; };
+		C617AD131D38F4F4000C7A63 /* RSMVString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSMVString.m; sourceTree = "<group>"; };
 		C61942521D37ECEB0032E2BC /* RSVideoCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositionInstruction.h; sourceTree = "<group>"; };
 		C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVideoCompositionInstruction.m; sourceTree = "<group>"; };
 		C61942581D37F0840032E2BC /* RSVideoCompositior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositior.h; sourceTree = "<group>"; };
@@ -337,6 +340,8 @@
 				C6086A541D37698400AD41EF /* Video_Const.h */,
 				C619426A1D37FC5C0032E2BC /* GLESMath.c */,
 				C619426B1D37FC5C0032E2BC /* GLESMath.h */,
+				C617AD121D38F4F4000C7A63 /* RSMVString.h */,
+				C617AD131D38F4F4000C7A63 /* RSMVString.m */,
 				C619425D1D37F6020032E2BC /* RSGLFilter.h */,
 				C619425E1D37F6020032E2BC /* RSGLFilter.m */,
 				C617AD011D38889D000C7A63 /* RenderFilter.h */,
@@ -528,6 +533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6086A691D377D0E00AD41EF /* RSBaseMedia.m in Sources */,
+				C617AD141D38F4F4000C7A63 /* RSMVString.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				C617AD031D38889D000C7A63 /* RenderFilter.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,

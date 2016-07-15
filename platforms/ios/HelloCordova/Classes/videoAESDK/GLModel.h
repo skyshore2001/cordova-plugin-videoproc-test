@@ -14,5 +14,7 @@
 @property (nonatomic ,assign)GLuint glTextureSlot ;
 @property (nonatomic ,assign)GLuint sampleSlot ;
 @property (nonatomic ,assign)CVOpenGLESTextureRef texture;
-@property (nonatomic ,assign)CVPixelBufferRef     pixelBuffer ; 
+@property (nonatomic ,assign)CVPixelBufferRef     pixelBuffer ;
+@property (nonatomic ,assign)GLuint brignessSlot;
+@property (nonatomic ,assign)GLuint index ; 
 @end

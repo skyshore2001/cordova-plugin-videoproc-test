@@ -129,7 +129,7 @@ static UIImage * tailImage = nil;
     CMTimeRange timeRange =  request.videoCompositionInstruction.timeRange;
     
     _compositionDuration =  timeRange.duration;
-    
+    self.renderFilter.videoCompositionDuration = _compositionDuration;
     CMPersistentTrackID foregroundTrackID = [(RSVideoCompositionInstruction *)request.videoCompositionInstruction foregroundTrackID];
     NSArray * configItem = [(RSVideoCompositionInstruction *)request.videoCompositionInstruction configItems];
     

@@ -11,6 +11,7 @@
 #import "ConfigItem.h"
 #import "Uitiltes.h"
 #import "GLModel.h"
+
 NSString *const kVertShaderString = SHADER_STRING
 (
  attribute vec4 position;
@@ -26,14 +27,16 @@ NSString *const kVertShaderString = SHADER_STRING
 
 NSString *const kFragShaderString = SHADER_STRING
 (
+ precision highp float;
+ precision mediump int;
  varying highp vec2 textureCoordinate;
- 
  uniform sampler2D Sampler;
+ uniform  float brightness;
  
  void main()
  {
      mediump vec4 out_Color = texture2D(Sampler, textureCoordinate);
-     gl_FragColor =vec4(out_Color.r,out_Color.g,out_Color.b,out_Color.a) ;
+     gl_FragColor =vec4(out_Color.r,out_Color.g,out_Color.b,out_Color.a)*brightness;
  }
  );
 
@@ -89,6 +92,7 @@ GLfloat quadVertexData [] = {
             GLuint position =  glGetAttribLocation(programe, "position");
             GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
             GLuint sample = glGetUniformLocation(programe, "Sampler");
+            GLuint brignessSlot = glGetUniformLocation(programe, "brightness");
             GLModel * model = [[GLModel alloc]init];
             model.glPrograme = programe;
             model.glPositionSlot = position;
@@ -96,6 +100,8 @@ GLfloat quadVertexData [] = {
             model.glTextureSlot = textureSlot;
             model.pixelBuffer = pixelBuffer;
             model.texture = texture;
+            model.brignessSlot = brignessSlot;
+            model.index  = index;
             glEnableVertexAttribArray(model.glPositionSlot);
             glEnableVertexAttribArray(model.glTextureSlot);
             [programeSlots addObject:model];
@@ -128,7 +134,10 @@ GLfloat quadVertexData [] = {
     if (programeSlots.count!=0) {
         for (int index = 0 ; index < programeSlots.count; index++) {
             GLModel * model = programeSlots[index];
-            ConfigItem * item = self.configItemsArray[index];
+            ConfigItem * item = self.configItemsArray[model.index];
+            if (CMTimeGetSeconds(compositionTime)<item.frome||CMTimeGetSeconds(compositionTime)>item.to) {
+                continue ; 
+            }
             glUseProgram(model.glPrograme);
             if (model.pixelBuffer) {
                 CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
@@ -139,6 +148,7 @@ GLfloat quadVertexData [] = {
                 glUniform1i(model.sampleSlot,1+index);
                 glVertexAttribPointer(model.glTextureSlot, 2, GL_FLOAT, 0, 0,[[self class] textureCoordinatesForRotation:kGPUImageNoRotation]);
                 glEnableVertexAttribArray(model.glTextureSlot);
+                glUniform1f(model.brignessSlot, 1.0);
                 glBlendFunc(GL_SRC_ALPHA,GL_ONE);
                 glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
                 glEnableVertexAttribArray(model.glPositionSlot);
@@ -171,9 +181,38 @@ bail:
 
 - (void)renderWithTime:(CMTime)compositionTime
 {
+    if (CMTimeGetSeconds(compositionTime)<1) {
+        [self setFloat:1.0 forUniformName:@"brightness"];
+    }
+    if (CMTimeGetSeconds(self.videoCompositionDuration)-CMTimeGetSeconds(compositionTime)<kTailDuration) {
+        CGFloat diff = CMTimeGetSeconds(self.videoCompositionDuration)-CMTimeGetSeconds(compositionTime);
+        NSLog(@"diff = %f",diff);
+        CGFloat brigness = -(0.3f/kTailDuration)*(kTailDuration-diff)+1;
+        [self setFloat:brigness forUniformName:@"brightness"];
+    }
     glVertexAttribPointer(filterPositionAttribute, 3, GL_FLOAT, 0, 0,quadVertexData);
     glEnableVertexAttribArray(filterPositionAttribute);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
+- (void)dealloc
+{
+    if(foregroundTexture !=NULL){
+        CFRelease(foregroundTexture);
+        foregroundTexture =NULL;
+    }
+    if(destTexture!=NULL){
+        CFRelease(destTexture);
+        destTexture = NULL;
+    }
+    for(int index = 0 ;index <programeSlots.count; index ++)
+    {
+       GLModel * model =  programeSlots[index];
+        glDeleteProgram(model.glPrograme);
+        if (model.pixelBuffer!=NULL) {
+            CFRelease(model.pixelBuffer);
+            model.pixelBuffer = NULL;
+        }
+    }
+}
 @end

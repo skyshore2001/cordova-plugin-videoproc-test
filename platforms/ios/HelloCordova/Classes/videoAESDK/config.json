@@ -6,7 +6,10 @@
                 },
               {
               "type": "image",
-              "value": "1.png"
+              "value": "1.png",
+              "from":50,
+              "to":52
               }
+              
             ]
 }
