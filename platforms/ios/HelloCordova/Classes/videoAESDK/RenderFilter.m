@@ -8,6 +8,8 @@
 
 #import "RenderFilter.h"
 #import "Video_Const.h"
+#import "ConfigItem.h"
+#import "Uitiltes.h"
 NSString *const kVertShaderString = SHADER_STRING
 (
  attribute vec4 position;
@@ -45,6 +47,9 @@ GLfloat quadVertexData [] = {
     CVOpenGLESTextureRef destTexture;
     CVOpenGLESTextureRef foregroundTexture;
 }
+@property(nonatomic ,strong)NSMutableArray  *    configItemsArray;
+@property(nonatomic ,strong)NSMutableArray  *    picTureArray ;
+
 @end
 
 @implementation RenderFilter
@@ -63,8 +68,26 @@ GLfloat quadVertexData [] = {
     return self;
 }
 
-- (void)renderPixelBuffer:(CVPixelBufferRef)destinationPixelBuffer usingForegroundSourceBuffer:(CVPixelBufferRef)foregroundPixelBuffer withComposition:(CMTime)compositionTime
+- (void)_handleConfigItems:(NSArray *)configItems
 {
+    if(self.configItemsArray.count !=0)return;
+    self.configItemsArray = [NSMutableArray arrayWithArray:configItems];
+    for (int index = 0; index <self.configItemsArray.count; index++) {
+        ConfigItem * item = self.configItemsArray[index];
+        if (item.type == kMediaType_Picture) {
+            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
+            CVPixelBufferRef pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
+            CVOpenGLESTextureRef textureBuffer = [self bgraTextureForPixelBuffer:pixelBuffer];
+            [self.picTureArray addObject:(__bridge id _Nonnull)(textureBuffer)];
+        }else if(item.type ==kMediaType_Text){
+            
+        }
+        
+    }
+}
+- (void)renderPixelBuffer:(CVPixelBufferRef)destinationPixelBuffer usingForegroundSourceBuffer:(CVPixelBufferRef)foregroundPixelBuffer withComposition:(CMTime)compositionTime winthConfigItem:(NSArray *)configItems
+{
+    [self _handleConfigItems:configItems];
     [self setProgram];
     glBindFramebuffer(GL_FRAMEBUFFER, offscreenBufferHandle);
     [self renderObjectWithPixel:destinationPixelBuffer];

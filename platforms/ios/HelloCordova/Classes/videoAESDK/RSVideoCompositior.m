@@ -131,6 +131,8 @@ static UIImage * tailImage = nil;
     _compositionDuration =  timeRange.duration;
     
     CMPersistentTrackID foregroundTrackID = [(RSVideoCompositionInstruction *)request.videoCompositionInstruction foregroundTrackID];
+    NSArray * configItem = [(RSVideoCompositionInstruction *)request.videoCompositionInstruction configItems];
+    
     CVPixelBufferRef foregroundSourceBuffer = [request sourceFrameByTrackID:foregroundTrackID];
     NSLog(@"totalTime = %f  , request time= %f",CMTimeGetSeconds(_compositionDuration),CMTimeGetSeconds(request.compositionTime));
     if (foregroundSourceBuffer) {
@@ -144,7 +146,7 @@ static UIImage * tailImage = nil;
                 return dstPixelBuffer;
             }
         }
-        [self.renderFilter renderPixelBuffer:dstPixelBuffer usingForegroundSourceBuffer:foregroundSourceBuffer withComposition:request.compositionTime];
+        [self.renderFilter renderPixelBuffer:dstPixelBuffer usingForegroundSourceBuffer:foregroundSourceBuffer withComposition:request.compositionTime winthConfigItem:configItem];
         return dstPixelBuffer;
     }else
     {

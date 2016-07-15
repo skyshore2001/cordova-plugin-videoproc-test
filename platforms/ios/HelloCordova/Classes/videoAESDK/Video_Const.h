@@ -12,6 +12,11 @@
 #import <CoreMedia/CoreMedia.h>
 #import <UIKit/UIKit.h>
 #import <CoreVideo/CoreVideo.h>
+
+#ifndef ImageAndText 
+#define ImageAndText
+#endif
+
 typedef enum{
     kMediaType_unKnown=-1,
     kMediaType_Video,

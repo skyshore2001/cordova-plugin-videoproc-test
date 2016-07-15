@@ -54,6 +54,9 @@
 		C6086A731D379CED00AD41EF /* config2.json in Resources */ = {isa = PBXBuildFile; fileRef = C6086A711D379CED00AD41EF /* config2.json */; settings = {ASSET_TAGS = (); }; };
 		C6086A761D379E2300AD41EF /* 2.MOV in Resources */ = {isa = PBXBuildFile; fileRef = C6086A751D379E2300AD41EF /* 2.MOV */; settings = {ASSET_TAGS = (); }; };
 		C6086A781D379E2F00AD41EF /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C6086A771D379E2E00AD41EF /* 1.mp3 */; settings = {ASSET_TAGS = (); }; };
+		C617AD031D38889D000C7A63 /* RenderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD021D38889D000C7A63 /* RenderFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C617AD061D389065000C7A63 /* AVAssetTrack+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD051D389065000C7A63 /* AVAssetTrack+Transform.m */; settings = {ASSET_TAGS = (); }; };
+		C617AD0A1D38AE3E000C7A63 /* Uitiltes.m in Sources */ = {isa = PBXBuildFile; fileRef = C617AD091D38AE3E000C7A63 /* Uitiltes.m */; settings = {ASSET_TAGS = (); }; };
 		C61942541D37ECEB0032E2BC /* RSVideoCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */; settings = {ASSET_TAGS = (); }; };
 		C619425A1D37F0840032E2BC /* RSVideoCompositior.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942591D37F0840032E2BC /* RSVideoCompositior.m */; settings = {ASSET_TAGS = (); }; };
 		C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C619425B1D37F0EE0032E2BC /* CoreVideo.framework */; };
@@ -144,6 +147,12 @@
 		C6086A711D379CED00AD41EF /* config2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config2.json; sourceTree = "<group>"; };
 		C6086A751D379E2300AD41EF /* 2.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 2.MOV; sourceTree = "<group>"; };
 		C6086A771D379E2E00AD41EF /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		C617AD011D38889D000C7A63 /* RenderFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderFilter.h; sourceTree = "<group>"; };
+		C617AD021D38889D000C7A63 /* RenderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderFilter.m; sourceTree = "<group>"; };
+		C617AD041D389065000C7A63 /* AVAssetTrack+Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetTrack+Transform.h"; sourceTree = "<group>"; };
+		C617AD051D389065000C7A63 /* AVAssetTrack+Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetTrack+Transform.m"; sourceTree = "<group>"; };
+		C617AD081D38AE3E000C7A63 /* Uitiltes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Uitiltes.h; sourceTree = "<group>"; };
+		C617AD091D38AE3E000C7A63 /* Uitiltes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Uitiltes.m; sourceTree = "<group>"; };
 		C61942521D37ECEB0032E2BC /* RSVideoCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositionInstruction.h; sourceTree = "<group>"; };
 		C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVideoCompositionInstruction.m; sourceTree = "<group>"; };
 		C61942581D37F0840032E2BC /* RSVideoCompositior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositior.h; sourceTree = "<group>"; };
@@ -325,10 +334,16 @@
 				C619426B1D37FC5C0032E2BC /* GLESMath.h */,
 				C619425D1D37F6020032E2BC /* RSGLFilter.h */,
 				C619425E1D37F6020032E2BC /* RSGLFilter.m */,
+				C617AD011D38889D000C7A63 /* RenderFilter.h */,
+				C617AD021D38889D000C7A63 /* RenderFilter.m */,
+				C617AD081D38AE3E000C7A63 /* Uitiltes.h */,
+				C617AD091D38AE3E000C7A63 /* Uitiltes.m */,
 				C619425F1D37F6020032E2BC /* RSGLProgram.h */,
 				C61942601D37F6020032E2BC /* RSGLProgram.m */,
 				C6086A551D376A8E00AD41EF /* VideoProc.h */,
 				C6086A561D376A8E00AD41EF /* VideoProc.m */,
+				C617AD041D389065000C7A63 /* AVAssetTrack+Transform.h */,
+				C617AD051D389065000C7A63 /* AVAssetTrack+Transform.m */,
 				C6086A6D1D378E3200AD41EF /* RSChunk.h */,
 				C6086A6E1D378E3200AD41EF /* RSChunk.m */,
 				C6086A671D377D0E00AD41EF /* RSBaseMedia.h */,
@@ -505,8 +520,10 @@
 			files = (
 				C6086A691D377D0E00AD41EF /* RSBaseMedia.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				C617AD031D38889D000C7A63 /* RenderFilter.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				C6086A631D377CA000AD41EF /* RSVideoChannel.m in Sources */,
+				C617AD0A1D38AE3E000C7A63 /* Uitiltes.m in Sources */,
 				C6086A6F1D378E3200AD41EF /* RSChunk.m in Sources */,
 				C61942611D37F6020032E2BC /* RSGLFilter.m in Sources */,
 				C619425A1D37F0840032E2BC /* RSVideoCompositior.m in Sources */,
@@ -520,6 +537,7 @@
 				C6086A571D376A8E00AD41EF /* VideoProc.m in Sources */,
 				C6086A511D3767C100AD41EF /* ReadMe.md in Sources */,
 				C619426C1D37FC5C0032E2BC /* GLESMath.c in Sources */,
+				C617AD061D389065000C7A63 /* AVAssetTrack+Transform.m in Sources */,
 				C6086A661D377CB500AD41EF /* RSAudioChannel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

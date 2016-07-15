@@ -56,13 +56,16 @@
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
         }
     }
-   RSVideoCompositionInstruction * instruction = [[RSVideoCompositionInstruction alloc]initForegroundTrackID:self.mainVideoChunk.video.videoTrack.trackID forTimeRange:CMTimeRangeMake(kCMTimeZero, self.mixComposition.duration) withTransform:[self.mainVideoChunk.video.videoTrack properTransformForRenderSize:tempNatureSize]];
-    
+#ifdef ImageAndText
+   RSVideoCompositionInstruction * instruction = [[RSVideoCompositionInstruction alloc]initForegroundTrackID:self.mainVideoChunk.video.videoTrack.trackID forTimeRange:CMTimeRangeMake(kCMTimeZero, self.mixComposition.duration) withTransform:[self.mainVideoChunk.video.videoTrack properTransformForRenderSize:tempNatureSize]withConfig:self.configInfoArray];
+#endif
     self.videoComposition = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:self.mixComposition];
-    self.videoComposition.instructions = @[instruction];
     self.videoComposition.frameDuration = CMTimeMake(1, 25);
     self.videoComposition.renderSize = CGSizeMake(480, 320);
+#ifdef ImageAndText
+    self.videoComposition.instructions = @[instruction];
     self.videoComposition.customVideoCompositorClass = [RSVideoCompositior  class];
+#endif 
     
 }
 

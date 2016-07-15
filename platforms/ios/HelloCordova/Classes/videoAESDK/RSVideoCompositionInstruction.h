@@ -13,7 +13,9 @@
 @property CMPersistentTrackID foregroundTrackID;
 @property CMPersistentTrackID backgroundTrackID;
 @property CGAffineTransform transform;
+@property NSArray * configItems; 
 - (id)initForegroundTrackID:(CMPersistentTrackID)passthroughTrackID forTimeRange:(CMTimeRange)timeRange withTransform:(CGAffineTransform)transform;
+- (id)initForegroundTrackID:(CMPersistentTrackID)passthroughTrackID forTimeRange:(CMTimeRange)timeRange withTransform:(CGAffineTransform)transform withConfig:(NSArray *)configItems; 
 - (id)initForegroundTrackID:(CMPersistentTrackID)passthroughTrackID forTimeRange:(CMTimeRange)timeRange withTransform:(CGAffineTransform)transform withSecondTrackID:(CMPersistentTrackID)passthroughTrackID2;
 
 @end
