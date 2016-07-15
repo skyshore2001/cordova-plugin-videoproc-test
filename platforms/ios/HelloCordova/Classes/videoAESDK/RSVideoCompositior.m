@@ -9,6 +9,7 @@
 #import "RSVideoCompositior.h"
 #import <CoreVideo/CoreVideo.h>  
 #import "RSVideoCompositionInstruction.h"
+#import "RenderFilter.h"
 @interface RSVideoCompositior()
 {
     CVPixelBufferRef dstPixelBuffer;
@@ -22,7 +23,7 @@
 @property (nonatomic, assign) BOOL renderContextDidChange;
 @property (nonatomic ,assign) CMTime compositionDuration;
 @property (nonatomic ,assign) NSInteger totalFrameIndex;
-//@property (nonatomic ,retain)RSTaileFilter * tailFilter ;
+@property (nonatomic ,retain)RenderFilter * renderFilter ;
 @property (nonatomic ,retain)NSArray * chunks ;
 @property (nonatomic ,assign)BOOL isBackGround;
 @end
@@ -37,7 +38,7 @@ static UIImage * tailImage = nil;
         _renderContextQueue = dispatch_queue_create("rs.rsvideocompositior.rendercontextqueue", DISPATCH_QUEUE_SERIAL);
         _previousBuffer = nil;
         _renderContextDidChange = NO;
-//        self.tailFilter = [[RSACVFilter alloc]init];
+        self.renderFilter = [[RenderFilter alloc]init];
         [self _registerNotification];
     }
     return self;
@@ -114,8 +115,6 @@ static UIImage * tailImage = nil;
         _shouldCancelAllRequests = NO;
     });
 }
-
-
 - (CVPixelBufferRef)newRenderedPixelBufferForRequest:(AVAsynchronousVideoCompositionRequest *)request error:(NSError **)error {
     if (_renderContextDidChange&&[request.videoCompositionInstruction isKindOfClass:[AVMutableVideoCompositionInstruction class]])
     {
@@ -128,13 +127,13 @@ static UIImage * tailImage = nil;
         _renderContextDidChange = YES;
     }
     CMTimeRange timeRange =  request.videoCompositionInstruction.timeRange;
-//    self.tailFilter.videoCompositionDuration = timeRange.duration; 
+    
     _compositionDuration =  timeRange.duration;
     
     CMPersistentTrackID foregroundTrackID = [(RSVideoCompositionInstruction *)request.videoCompositionInstruction foregroundTrackID];
     CVPixelBufferRef foregroundSourceBuffer = [request sourceFrameByTrackID:foregroundTrackID];
     NSLog(@"totalTime = %f  , request time= %f",CMTimeGetSeconds(_compositionDuration),CMTimeGetSeconds(request.compositionTime));
-    if (CMTimeGetSeconds(_compositionDuration)-CMTimeGetSeconds(request.compositionTime)<2.6) {
+    if (foregroundSourceBuffer) {
         dstPixelBuffer = [_renderContext newPixelBuffer];
         if (self.isBackGround) {
             if(foregroundSourceBuffer)
@@ -145,7 +144,7 @@ static UIImage * tailImage = nil;
                 return dstPixelBuffer;
             }
         }
-//        [self.tailFilter renderPixelBuffer:dstPixelBuffer usingForegroundSourceBuffer:foregroundSourceBuffer withComposition:request.compositionTime];
+        [self.renderFilter renderPixelBuffer:dstPixelBuffer usingForegroundSourceBuffer:foregroundSourceBuffer withComposition:request.compositionTime];
         return dstPixelBuffer;
     }else
     {

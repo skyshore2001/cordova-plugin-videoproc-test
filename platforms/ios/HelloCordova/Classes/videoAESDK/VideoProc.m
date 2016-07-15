@@ -12,6 +12,9 @@
 #import "RSAudioChannel.h"
 #import "RSChunk.h"
 #import "RSExportSession.h"
+#import "RSVideoCompositionInstruction.h"
+#import "AVAssetTrack+Transform.h"
+#import "RSVideoCompositior.h"
 @interface VideoProc()
 @property (nonatomic ,strong)NSString * videoFile ;
 @property (nonatomic ,strong)AVMutableComposition * mixComposition ;
@@ -37,6 +40,7 @@
 }
 - (void)_mixVideoAndAudioNeedMix:(BOOL)needMix
 {
+    CGSize  tempNatureSize = [self.mixComposition naturalSize];
     self.mixComposition = [AVMutableComposition composition];
     AVMutableCompositionTrack * videoTrack = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     [videoTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:self.mainVideoChunk.video.videoTrack atTime:kCMTimeZero error:nil];
@@ -52,9 +56,13 @@
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
         }
     }
+   RSVideoCompositionInstruction * instruction = [[RSVideoCompositionInstruction alloc]initForegroundTrackID:self.mainVideoChunk.video.videoTrack.trackID forTimeRange:CMTimeRangeMake(kCMTimeZero, self.mixComposition.duration) withTransform:[self.mainVideoChunk.video.videoTrack properTransformForRenderSize:tempNatureSize]];
+    
     self.videoComposition = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:self.mixComposition];
+    self.videoComposition.instructions = @[instruction];
     self.videoComposition.frameDuration = CMTimeMake(1, 25);
     self.videoComposition.renderSize = CGSizeMake(480, 320);
+    self.videoComposition.customVideoCompositorClass = [RSVideoCompositior  class];
     
 }
 
