@@ -46,7 +46,7 @@
 		C6086A5A1D37708500AD41EF /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C6086A591D37708500AD41EF /* config.json */; settings = {ASSET_TAGS = (); }; };
 		C6086A5D1D37770E00AD41EF /* ConfigItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A5C1D37770E00AD41EF /* ConfigItem.m */; settings = {ASSET_TAGS = (); }; };
 		C6086A631D377CA000AD41EF /* RSVideoChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A621D377CA000AD41EF /* RSVideoChannel.m */; settings = {ASSET_TAGS = (); }; };
-		C6086A661D377CB500AD41EF /* RSAudioChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A651D377CB500AD41EF /* RSAudioChannel.m */; settings = {ASSET_TAGS = (); }; };
+		C6086A661D377CB500AD41EF /* RSAudioChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C6086A651D377CB500AD41EF /* RSAudioChannel.mm */; settings = {ASSET_TAGS = (); }; };
 		C6086A691D377D0E00AD41EF /* RSBaseMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A681D377D0E00AD41EF /* RSBaseMedia.m */; settings = {ASSET_TAGS = (); }; };
 		C6086A6C1D37896C00AD41EF /* RSExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A6B1D37896C00AD41EF /* RSExportSession.m */; settings = {ASSET_TAGS = (); }; };
 		C6086A6F1D378E3200AD41EF /* RSChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = C6086A6E1D378E3200AD41EF /* RSChunk.m */; settings = {ASSET_TAGS = (); }; };
@@ -54,6 +54,14 @@
 		C6086A731D379CED00AD41EF /* config2.json in Resources */ = {isa = PBXBuildFile; fileRef = C6086A711D379CED00AD41EF /* config2.json */; settings = {ASSET_TAGS = (); }; };
 		C6086A761D379E2300AD41EF /* 2.MOV in Resources */ = {isa = PBXBuildFile; fileRef = C6086A751D379E2300AD41EF /* 2.MOV */; settings = {ASSET_TAGS = (); }; };
 		C6086A781D379E2F00AD41EF /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C6086A771D379E2E00AD41EF /* 1.mp3 */; settings = {ASSET_TAGS = (); }; };
+		C61942541D37ECEB0032E2BC /* RSVideoCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */; settings = {ASSET_TAGS = (); }; };
+		C619425A1D37F0840032E2BC /* RSVideoCompositior.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942591D37F0840032E2BC /* RSVideoCompositior.m */; settings = {ASSET_TAGS = (); }; };
+		C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C619425B1D37F0EE0032E2BC /* CoreVideo.framework */; };
+		C61942611D37F6020032E2BC /* RSGLFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C619425E1D37F6020032E2BC /* RSGLFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C61942621D37F6020032E2BC /* RSGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = C61942601D37F6020032E2BC /* RSGLProgram.m */; settings = {ASSET_TAGS = (); }; };
+		C61942671D37FA650032E2BC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942661D37FA650032E2BC /* OpenGLES.framework */; };
+		C61942691D37FC050032E2BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942681D37FC050032E2BC /* QuartzCore.framework */; };
+		C619426C1D37FC5C0032E2BC /* GLESMath.c in Sources */ = {isa = PBXBuildFile; fileRef = C619426A1D37FC5C0032E2BC /* GLESMath.c */; settings = {ASSET_TAGS = (); }; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 /* End PBXBuildFile section */
 
@@ -125,7 +133,7 @@
 		C6086A611D377CA000AD41EF /* RSVideoChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoChannel.h; sourceTree = "<group>"; };
 		C6086A621D377CA000AD41EF /* RSVideoChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVideoChannel.m; sourceTree = "<group>"; };
 		C6086A641D377CB500AD41EF /* RSAudioChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAudioChannel.h; sourceTree = "<group>"; };
-		C6086A651D377CB500AD41EF /* RSAudioChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAudioChannel.m; sourceTree = "<group>"; };
+		C6086A651D377CB500AD41EF /* RSAudioChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RSAudioChannel.mm; sourceTree = "<group>"; };
 		C6086A671D377D0E00AD41EF /* RSBaseMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBaseMedia.h; sourceTree = "<group>"; };
 		C6086A681D377D0E00AD41EF /* RSBaseMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBaseMedia.m; sourceTree = "<group>"; };
 		C6086A6A1D37896C00AD41EF /* RSExportSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSExportSession.h; sourceTree = "<group>"; };
@@ -136,6 +144,19 @@
 		C6086A711D379CED00AD41EF /* config2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config2.json; sourceTree = "<group>"; };
 		C6086A751D379E2300AD41EF /* 2.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 2.MOV; sourceTree = "<group>"; };
 		C6086A771D379E2E00AD41EF /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		C61942521D37ECEB0032E2BC /* RSVideoCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositionInstruction.h; sourceTree = "<group>"; };
+		C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVideoCompositionInstruction.m; sourceTree = "<group>"; };
+		C61942581D37F0840032E2BC /* RSVideoCompositior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSVideoCompositior.h; sourceTree = "<group>"; };
+		C61942591D37F0840032E2BC /* RSVideoCompositior.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSVideoCompositior.m; sourceTree = "<group>"; };
+		C619425B1D37F0EE0032E2BC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		C619425D1D37F6020032E2BC /* RSGLFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGLFilter.h; sourceTree = "<group>"; };
+		C619425E1D37F6020032E2BC /* RSGLFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGLFilter.m; sourceTree = "<group>"; };
+		C619425F1D37F6020032E2BC /* RSGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGLProgram.h; sourceTree = "<group>"; };
+		C61942601D37F6020032E2BC /* RSGLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGLProgram.m; sourceTree = "<group>"; };
+		C61942661D37FA650032E2BC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C61942681D37FC050032E2BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C619426A1D37FC5C0032E2BC /* GLESMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GLESMath.c; sourceTree = "<group>"; };
+		C619426B1D37FC5C0032E2BC /* GLESMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLESMath.h; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		DE7B226A897E409ABAD82F5F /* CDVVideoProc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVVideoProc.m; path = "cordova-plugin-videoproc/CDVVideoProc.m"; sourceTree = "<group>"; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
@@ -149,6 +170,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C61942691D37FC050032E2BC /* QuartzCore.framework in Frameworks */,
+				C61942671D37FA650032E2BC /* OpenGLES.framework in Frameworks */,
+				C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -223,6 +247,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C61942681D37FC050032E2BC /* QuartzCore.framework */,
+				C61942661D37FA650032E2BC /* OpenGLES.framework */,
+				C619425B1D37F0EE0032E2BC /* CoreVideo.framework */,
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
@@ -294,6 +321,12 @@
 				C6086A521D37692800AD41EF /* ReadMe.md */,
 				C6086A501D3767C100AD41EF /* ReadMe.md */,
 				C6086A541D37698400AD41EF /* Video_Const.h */,
+				C619426A1D37FC5C0032E2BC /* GLESMath.c */,
+				C619426B1D37FC5C0032E2BC /* GLESMath.h */,
+				C619425D1D37F6020032E2BC /* RSGLFilter.h */,
+				C619425E1D37F6020032E2BC /* RSGLFilter.m */,
+				C619425F1D37F6020032E2BC /* RSGLProgram.h */,
+				C61942601D37F6020032E2BC /* RSGLProgram.m */,
 				C6086A551D376A8E00AD41EF /* VideoProc.h */,
 				C6086A561D376A8E00AD41EF /* VideoProc.m */,
 				C6086A6D1D378E3200AD41EF /* RSChunk.h */,
@@ -301,11 +334,15 @@
 				C6086A671D377D0E00AD41EF /* RSBaseMedia.h */,
 				C6086A681D377D0E00AD41EF /* RSBaseMedia.m */,
 				C6086A641D377CB500AD41EF /* RSAudioChannel.h */,
-				C6086A651D377CB500AD41EF /* RSAudioChannel.m */,
+				C6086A651D377CB500AD41EF /* RSAudioChannel.mm */,
 				C6086A611D377CA000AD41EF /* RSVideoChannel.h */,
 				C6086A621D377CA000AD41EF /* RSVideoChannel.m */,
 				C6086A6A1D37896C00AD41EF /* RSExportSession.h */,
 				C6086A6B1D37896C00AD41EF /* RSExportSession.m */,
+				C61942521D37ECEB0032E2BC /* RSVideoCompositionInstruction.h */,
+				C61942531D37ECEB0032E2BC /* RSVideoCompositionInstruction.m */,
+				C61942581D37F0840032E2BC /* RSVideoCompositior.h */,
+				C61942591D37F0840032E2BC /* RSVideoCompositior.m */,
 				C6086A5B1D37770E00AD41EF /* ConfigItem.h */,
 				C6086A5C1D37770E00AD41EF /* ConfigItem.m */,
 				C6086A591D37708500AD41EF /* config.json */,
@@ -471,14 +508,19 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				C6086A631D377CA000AD41EF /* RSVideoChannel.m in Sources */,
 				C6086A6F1D378E3200AD41EF /* RSChunk.m in Sources */,
+				C61942611D37F6020032E2BC /* RSGLFilter.m in Sources */,
+				C619425A1D37F0840032E2BC /* RSVideoCompositior.m in Sources */,
 				C6086A531D37692800AD41EF /* ReadMe.md in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				C61942541D37ECEB0032E2BC /* RSVideoCompositionInstruction.m in Sources */,
+				C61942621D37F6020032E2BC /* RSGLProgram.m in Sources */,
 				C6086A5D1D37770E00AD41EF /* ConfigItem.m in Sources */,
 				C6086A6C1D37896C00AD41EF /* RSExportSession.m in Sources */,
 				8D31D97CA2564B5EB3B1606D /* CDVVideoProc.m in Sources */,
 				C6086A571D376A8E00AD41EF /* VideoProc.m in Sources */,
 				C6086A511D3767C100AD41EF /* ReadMe.md in Sources */,
-				C6086A661D377CB500AD41EF /* RSAudioChannel.m in Sources */,
+				C619426C1D37FC5C0032E2BC /* GLESMath.c in Sources */,
+				C6086A661D377CB500AD41EF /* RSAudioChannel.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

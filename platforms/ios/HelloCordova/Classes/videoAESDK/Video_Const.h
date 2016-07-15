@@ -10,6 +10,8 @@
 #define Video_Const_h
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
+#import <UIKit/UIKit.h>
+#import <CoreVideo/CoreVideo.h>
 typedef enum{
     kMediaType_unKnown=-1,
     kMediaType_Video,
@@ -33,6 +35,12 @@ typedef enum{
 #define BlockCallWithOneArg(block,arg)  if(block){block(arg);}
 #define BlockCallWithTwoArg(block,arg1,arg2) if(block){block(arg1,arg2);}
 #define BlockCallWithThreeArg(block,arg1,arg2,arg3) if(block){block(arg1,arg2,arg3);}
+/**
+ string  
+ */
+#define STRINGIZE(x) #x
+#define STRINGIZE2(x) STRINGIZE(x)
+#define SHADER_STRING(text) @ STRINGIZE2(text)
 
 /**
  *视频质量
