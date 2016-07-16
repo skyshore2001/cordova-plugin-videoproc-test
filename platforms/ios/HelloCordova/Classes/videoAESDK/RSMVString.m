@@ -10,16 +10,20 @@
 
 @implementation RSMVString
 
-- (instancetype)initWithcString:(NSString  *)string
+- (instancetype)initWithcString:(NSString  *)string withFontSize:(CGFloat)size withPosition:(CGPoint)position
 {
     self = [super init];
     if (self) {
-        self.text = string;
-        self.backgroundColor = [UIColor blackColor];
-        self.font = [UIFont systemFontOfSize:640/(string.length+1)                                                                                                                                                                                                                                ];
-        self.textColor = [[self class]randomColor];
-        self.textAlignment = NSTextAlignmentCenter;
         [self setFrame:CGRectMake(0, 0, 640, 360)];
+        UILabel * lable = [[UILabel alloc]initWithFrame:CGRectMake(position.x, position.y, size*string.length, size)];
+        
+        lable.text = string;
+        lable.textColor = [UIColor whiteColor];
+        lable.textAlignment  = NSTextAlignmentCenter;
+        lable.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor blackColor];
+        lable.font = [UIFont systemFontOfSize:size];
+        [self addSubview:lable];
     }
     return self;
 }

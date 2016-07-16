@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSMVString : UILabel
-- (instancetype)initWithcString:(NSString  *)string; 
+@interface RSMVString :UIView
+- (instancetype)initWithcString:(NSString  *)string withFontSize:(CGFloat)size withPosition:(CGPoint)position;
 -(CVPixelBufferRef)convertViewToImage;
 @end

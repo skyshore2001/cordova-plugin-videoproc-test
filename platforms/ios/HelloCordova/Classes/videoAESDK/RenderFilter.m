@@ -11,6 +11,7 @@
 #import "ConfigItem.h"
 #import "Uitiltes.h"
 #import "GLModel.h"
+#import "RSMVString.h"
 
 NSString *const kVertShaderString = SHADER_STRING
 (
@@ -81,33 +82,38 @@ GLfloat quadVertexData [] = {
     self.configItemsArray = [NSMutableArray arrayWithArray:configItems];
     for (int index = 0; index <self.configItemsArray.count; index++) {
         ConfigItem * item = self.configItemsArray[index];
+        CVPixelBufferRef pixelBuffer=NULL;
+        CVOpenGLESTextureRef texture = NULL;
         if (item.type == kMediaType_Picture) {
 #warning test
             NSString *path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"png"];
             UIImage * image = [UIImage imageWithContentsOfFile:path];
-            CVPixelBufferRef pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
-            CVOpenGLESTextureRef texture = [self bgraTextureForPixelBuffer:pixelBuffer];
-            //programe 相关
-            GLuint programe = [filterProgram compileVShaderString:kVertShaderString withFShaderString:kFragShaderString];
-            GLuint position =  glGetAttribLocation(programe, "position");
-            GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
-            GLuint sample = glGetUniformLocation(programe, "Sampler");
-            GLuint brignessSlot = glGetUniformLocation(programe, "brightness");
-            GLModel * model = [[GLModel alloc]init];
-            model.glPrograme = programe;
-            model.glPositionSlot = position;
-            model.sampleSlot = sample;
-            model.glTextureSlot = textureSlot;
-            model.pixelBuffer = pixelBuffer;
-            model.texture = texture;
-            model.brignessSlot = brignessSlot;
-            model.index  = index;
-            glEnableVertexAttribArray(model.glPositionSlot);
-            glEnableVertexAttribArray(model.glTextureSlot);
-            [programeSlots addObject:model];
+            pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
+            texture = [self bgraTextureForPixelBuffer:pixelBuffer];
         }else if(item.type ==kMediaType_Text){
-            
+            RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:50 withPosition:CGPointMake(item.pointX, item.pointY)];
+             pixelBuffer = [textPic convertViewToImage];
+             texture = [self bgraTextureForPixelBuffer:pixelBuffer];
         }
+        //programe 相关
+        GLuint programe = [filterProgram compileVShaderString:kVertShaderString withFShaderString:kFragShaderString];
+        GLuint position =  glGetAttribLocation(programe, "position");
+        GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
+        GLuint sample = glGetUniformLocation(programe, "Sampler");
+        GLuint brignessSlot = glGetUniformLocation(programe, "brightness");
+        GLModel * model = [[GLModel alloc]init];
+        model.glPrograme = programe;
+        model.glPositionSlot = position;
+        model.sampleSlot = sample;
+        model.glTextureSlot = textureSlot;
+        model.pixelBuffer = pixelBuffer;
+        model.texture = texture;
+        model.brignessSlot = brignessSlot;
+        model.index  = index;
+        glEnableVertexAttribArray(model.glPositionSlot);
+        glEnableVertexAttribArray(model.glTextureSlot);
+        [programeSlots addObject:model];
+        
     }
 }
 - (void)renderPixelBuffer:(CVPixelBufferRef)destinationPixelBuffer usingForegroundSourceBuffer:(CVPixelBufferRef)foregroundPixelBuffer withComposition:(CMTime)compositionTime winthConfigItem:(NSArray *)configItems
@@ -135,6 +141,7 @@ GLfloat quadVertexData [] = {
         for (int index = 0 ; index < programeSlots.count; index++) {
             GLModel * model = programeSlots[index];
             ConfigItem * item = self.configItemsArray[model.index];
+            if(item.to ==-1)item.to = CMTimeGetSeconds(self.videoCompositionDuration);
             if (CMTimeGetSeconds(compositionTime)<item.frome||CMTimeGetSeconds(compositionTime)>item.to) {
                 continue ; 
             }
