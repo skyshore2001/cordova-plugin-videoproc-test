@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+typedef void (^SuccessBlock)(NSString * fileName);
+typedef void (^FaildBlock)(NSString * errorString);
 @interface VideoProc : NSObject
 
-- (void)compose:(NSString *)videoFile withConfig:(NSString *)configString;
+- (void)compose:(NSString *)videoFile withConfig:(NSDictionary *)configInfo withSuccess:(SuccessBlock)successcb withFaild:(FaildBlock)faildcb;
 
 @end

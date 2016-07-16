@@ -2,8 +2,9 @@
 #include <sys/sysctl.h>
 #import <Cordova/CDV.h>
 #import "CDVVideoProc.h"
+#import "VideoProc.h"
 #ifndef GuanT_Test
-//#define GuanT_Test
+#define GuanT_Test
 #endif
 @implementation CDVVideoProc
 
@@ -11,13 +12,19 @@
 {
 	NSString *videoFile = [command.arguments objectAtIndex:0];
     NSDictionary *opt = [command.arguments objectAtIndex:1];
-
 #ifdef GuanT_Test
-    NSString * fileName = [[NSBundle mainBundle]pathForResource:@"config" ofType:@"json"];
-    NSString * vfileName = [[NSBundle mainBundle]pathForResource:@"2" ofType:@"MOV"];
+    __weak CDVVideoProc * wself= self;
+//    NSString * fileName = [[NSBundle mainBundle]pathForResource:@"config" ofType:@"json"];
+//    NSString * vfileName = [[NSBundle mainBundle]pathForResource:@"2" ofType:@"MOV"];
+//    NSString * jsonConfig = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
     VideoProc * v = [[VideoProc alloc]init];
-    NSString * jsonConfig = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
-    [v compose:vfileName withConfig:jsonConfig];
+    [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
+        [wself.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } withFaild:^(NSString *errorString) {
+        CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
+        [wself.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    }];
 #endif
     
     
@@ -31,13 +38,7 @@
 	}
 
     
-    [self.commandDelegate runInBackground:^{
-	
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
 
-        sleep(2);
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
 
 }
 

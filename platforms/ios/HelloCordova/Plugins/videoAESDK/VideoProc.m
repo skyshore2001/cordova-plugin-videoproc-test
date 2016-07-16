@@ -25,9 +25,9 @@
 @end
 @implementation VideoProc
 
-- (void)compose:(NSString *)videoFile withConfig:(NSString *)configJson
+- (void)compose:(NSString *)videoFile withConfig:(NSDictionary *)configInfo withSuccess:(SuccessBlock)successcb withFaild:(FaildBlock)faildcb
 {
-    self.configInfoArray  = [self _parseJsonString:configJson];
+    self.configInfoArray  = [self _parseJsonString:configInfo];
     if (self.configInfoArray.count==0) {
         NSLog(@"parse json String error");
         return;
@@ -35,9 +35,37 @@
     self.videoFile = videoFile;
     self.mainVideoChunk = [[RSChunk alloc]initWithUrlString:videoFile];
     [self _mixVideoAndAudioNeedMix:YES];
-    [self _doexport]; 
-    
+    [self _doexportSuccess:^(NSString *fileName) {
+        if (successcb) {
+            successcb(fileName);
+        }
+    } withFaild:^(NSString *errorString) {
+        if (faildcb) {
+            faildcb(errorString); 
+        }
+    }];
 }
+
+- (NSArray *)_parseJsonString:(NSDictionary *)config
+{
+    NSMutableArray * configInfo = [NSMutableArray array];
+    NSArray * items = [config objectForKey:@"items"];
+    for (NSDictionary * item in items) {
+        ConfigItem * configItem = [[ConfigItem alloc]init];
+        configItem.type = [self _returnType:[item objectForKey:@"type"]];
+        configItem.value=[item objectForKey:@"value"];
+        configItem.frome = [[item objectForKey:@"from"]integerValue];
+        configItem.to = [[item objectForKey:@"to"]integerValue];
+        configItem.pointX = [[item objectForKey:@"x"]integerValue];
+        configItem.pointY = [[item objectForKey:@"y"]integerValue];
+        configItem.width = [[item objectForKey:@"width"]integerValue];
+        configItem.height = [[item objectForKey:@"height"]integerValue];
+        [configInfo addObject:configItem];
+    }
+    return configInfo;
+}
+
+
 - (void)_mixVideoAndAudioNeedMix:(BOOL)needMix
 {
     CGSize  tempNatureSize = [self.mixComposition naturalSize];
@@ -69,7 +97,7 @@
     
 }
 
-- (void)_doexport
+- (void)_doexportSuccess:(SuccessBlock)scb withFaild:(FaildBlock)fcb;
 {
     NSString * videoPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSAllDomainsMask, YES)[0];
     videoPath = [videoPath stringByAppendingPathComponent:@"video.mp4"];
@@ -83,33 +111,16 @@
     [self.exportSession doExportWithProcess:^(CGFloat process) {
         NSLog(@"process = %f",process);
     } withSuccess:^(AVAssetExportSession *exportSession) {
+        if (scb) {
+            scb(exportSession.outputURL.absoluteString); 
+        }
     } withFaild:^(NSError *exportError) {
+        if (fcb) {
+            fcb(exportError.localizedFailureReason);
+        }
     }];
 }
 
-- (NSArray *)_parseJsonString:(NSString *)config
-{
-    NSData * data = [config dataUsingEncoding:NSUTF8StringEncoding];
-    id obj = [NSJSONSerialization JSONObjectWithData:data  options:NSJSONReadingMutableLeaves error:nil];
-    NSMutableArray * configInfo = [NSMutableArray array];
-    if (obj&&[obj isKindOfClass:[NSDictionary class]]) {
-        obj = [(NSDictionary *)obj objectForKey:@"items"];
-        for (NSDictionary * item in (NSArray *)obj) {
-            ConfigItem * configItem = [[ConfigItem alloc]init];
-            configItem.type = [self _returnType:[item objectForKey:@"type"]];
-            configItem.value=[item objectForKey:@"value"];
-            configItem.frome = [[item objectForKey:@"from"]integerValue];
-            configItem.to = [[item objectForKey:@"to"]integerValue];
-            configItem.pointX = [[item objectForKey:@"x"]integerValue];
-            configItem.pointY = [[item objectForKey:@"y"]integerValue];
-            configItem.width = [[item objectForKey:@"width"]integerValue];
-            configItem.height = [[item objectForKey:@"height"]integerValue];
-            [configInfo addObject:configItem];
-        }
-        return configInfo; 
-    }
-    return nil;
-}
 
 - (kMediaType)_returnType:(NSString *)typeStr
 {
