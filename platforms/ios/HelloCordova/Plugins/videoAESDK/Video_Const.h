@@ -14,7 +14,7 @@
 #import <CoreVideo/CoreVideo.h>
 
 #ifndef ImageAndText 
-#define ImageAndText
+//#define ImageAndText
 #endif
 
 #define kTailDuration  2.0f 
