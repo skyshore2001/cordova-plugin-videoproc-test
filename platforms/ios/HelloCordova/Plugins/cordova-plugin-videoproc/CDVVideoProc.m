@@ -13,10 +13,11 @@
 	NSString *videoFile = [command.arguments objectAtIndex:0];
     NSDictionary *opt = [command.arguments objectAtIndex:1];
 #ifdef GuanT_Test
+    videoFile = [[NSBundle mainBundle]pathForResource:@"2" ofType:@"MOV"];
+    NSString * optdes = [[NSBundle mainBundle]pathForResource:@"config" ofType:@"json"];
+    NSData * data = [NSData dataWithContentsOfFile:optdes];
+    opt = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
     __weak CDVVideoProc * wself= self;
-//    NSString * fileName = [[NSBundle mainBundle]pathForResource:@"config" ofType:@"json"];
-//    NSString * vfileName = [[NSBundle mainBundle]pathForResource:@"2" ofType:@"MOV"];
-//    NSString * jsonConfig = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:nil];
     VideoProc * v = [[VideoProc alloc]init];
     [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
