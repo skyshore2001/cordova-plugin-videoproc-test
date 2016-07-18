@@ -17,14 +17,18 @@
     NSString * optdes = [[NSBundle mainBundle]pathForResource:@"config" ofType:@"json"];
     NSData * data = [NSData dataWithContentsOfFile:optdes];
     opt = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+    
     __weak CDVVideoProc * wself= self;
-    VideoProc * v = [[VideoProc alloc]init];
-    [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
-        [wself.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    } withFaild:^(NSString *errorString) {
-        CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
-        [wself.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    [self.commandDelegate runInBackground:^{
+        VideoProc * v = [[VideoProc alloc]init];
+        [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
+
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
+            [wself.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        } withFaild:^(NSString *errorString) {
+            CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
+            [wself.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        }];
     }];
 #endif
     
