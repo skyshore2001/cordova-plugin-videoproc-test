@@ -27,11 +27,12 @@ function testit()
 ```
 ### 	原生代码接口说明
 
+####    接口文件在 VideoProc.h
 
 ```
-- (void)compose:(NSString *)videoFile withConfig:(NSString *)configString;
+- (void)compose:(NSString *)videoFile withConfig:(NSDictionary *)configopt;
 1.videofile 视频的地址  
-2.configString 视频配置参数 
+2.opt 视频配置参数 
 {
     "items": [
                 {
@@ -61,5 +62,33 @@ function testit()
             ]
 }
 
+- (UIImage *)getThumbnail;  //获取缩略图
+
+
+- (void)cancleExport;   //取消导出
+
+
 ```
 
+
+
+###	Video_Const.h 说明
+
+```
+如下修改:(启用文字图片以及片尾模糊功能)
+#ifndef ImageAndText 
+#define ImageAndText
+#endif
+如下修改:(只启用音视频合成功能)
+#ifndef ImageAndText 
+//#define ImageAndText
+#endif
+
+//定义了片尾变暗的时间(默认是2s内变暗)
+#define kTailDuration  2.0f  
+
+//定义了文字绘制在视频上的字体大小
+#define kFontSize  50
+
+
+```

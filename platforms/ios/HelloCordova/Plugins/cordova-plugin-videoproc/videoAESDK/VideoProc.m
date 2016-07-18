@@ -137,4 +137,28 @@
     }
     return kMediaType_unKnown;
 }
+
+- (UIImage *)_genImageAtTime:(CMTime)atTime withSize:(CGSize)imageSize
+{
+    AVAssetImageGenerator *generator         = [AVAssetImageGenerator assetImageGeneratorWithAsset:self.mixComposition];
+    generator.appliesPreferredTrackTransform = YES;
+    generator.requestedTimeToleranceBefore   = CMTimeMake(25, 25);
+    generator.requestedTimeToleranceAfter    = CMTimeMake(25, 25);
+    generator.maximumSize                    = imageSize;
+    generator.apertureMode = AVAssetImageGeneratorApertureModeEncodedPixels ;
+    NSError *error                           = nil;
+    CGImageRef img                           = [generator copyCGImageAtTime:atTime actualTime:NULL error:&error];
+    UIImage *image                           = [UIImage imageWithCGImage: img];
+    return image;
+}
+- (UIImage *)getThumbnail
+{
+    return [self _genImageAtTime:CMTimeMake(25, 25) withSize:CGSizeMake(480,320)];
+}
+
+- (void)cancleExport
+{
+    [self.exportSession cancleExport];
+}
+
 @end

@@ -19,6 +19,8 @@
 
 #define kTailDuration  2.0f 
 
+#define kFontSize  50
+
 typedef enum{
     kMediaType_unKnown=-1,
     kMediaType_Video,

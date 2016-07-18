@@ -91,7 +91,7 @@ GLfloat quadVertexData [] = {
             pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
             texture = [self bgraTextureForPixelBuffer:pixelBuffer];
         }else if(item.type ==kMediaType_Text){
-            RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:50 withPosition:CGPointMake(item.pointX, item.pointY)];
+            RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
              pixelBuffer = [textPic convertViewToImage];
              texture = [self bgraTextureForPixelBuffer:pixelBuffer];
             mediaType = kMediaType_Text;
