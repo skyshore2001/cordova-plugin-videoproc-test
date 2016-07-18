@@ -8,7 +8,7 @@
 
 #import "RSBaseMedia.h"
 #import <AVFoundation/AVFoundation.h>
-typedef void (^GenImageSuccess)(NSArray<UIImage*> *imageArray);
+typedef void (^GenImageSuccess)(NSArray*imageArray);
 typedef void (^GenImageFaild)(NSError * error);
 
 
@@ -45,7 +45,7 @@ typedef void (^GenImageFaild)(NSError * error);
  *  @param faild     图片数组获取失败的block (error ,返回Error)
  */
 
-- (void)genimagesAtTimes:(NSArray<NSValue *> *)atTimes withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild;
+- (void)genimagesAtTimes:(NSArray *)atTimes withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild;
 
 /**
  *  获取时间数组的图片数组
@@ -57,5 +57,5 @@ typedef void (^GenImageFaild)(NSError * error);
  *  @param faild      图片数组获取失败的block (error ,返回Error)
  */
 
-- (void)genimagesAtTimes:(NSArray<NSValue *> *)atTimes withTrune:(NSInteger)truneCount withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild;
+- (void)genimagesAtTimes:(NSArray *)atTimes withTrune:(NSInteger)truneCount withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild;
 @end

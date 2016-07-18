@@ -44,7 +44,7 @@
     return image;
 }
 
-- (void)genimagesAtTimes:(NSArray<NSValue *> *)atTimes withTrune:(NSInteger)truneCount withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild
+- (void)genimagesAtTimes:(NSArray *)atTimes withTrune:(NSInteger)truneCount withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild
 {
     if(![self mediaUrlAsset])return ;
     if(truneCount == -1)truneCount = atTimes.count;
@@ -69,7 +69,7 @@
     }];
 }
 
-- (void)genimagesAtTimes:(NSArray<NSValue *> *)atTimes withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild
+- (void)genimagesAtTimes:(NSArray *)atTimes withSize:(CGSize)imageSize Success:(GenImageSuccess)success Faild:(GenImageFaild)faild
 {
     [self genimagesAtTimes:atTimes withTrune:-1 withSize:imageSize Success:success Faild:faild];
 }
