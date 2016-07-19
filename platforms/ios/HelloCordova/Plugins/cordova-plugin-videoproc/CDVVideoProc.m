@@ -23,7 +23,7 @@
         VideoProc * v = [[VideoProc alloc]init];
         [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
 
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:videoFile];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:fileName];
             [wself.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } withFaild:^(NSString *errorString) {
             CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
