@@ -67,6 +67,9 @@ function testit()
 	
 	function onSuccess(file) {
 		alert('generate file: ' + file);
+		var media = document.getElementById('myVideo');
+		media.src = 'file://' + file;
+		media.play();
 	}
 
 	function onFail(msg) {
