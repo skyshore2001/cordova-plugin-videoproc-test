@@ -21,9 +21,9 @@
     __weak CDVVideoProc * wself= self;
     [self.commandDelegate runInBackground:^{
         VideoProc * v = [[VideoProc alloc]init];
-        [v compose:videoFile withConfig:opt withSuccess:^(NSString *fileName) {
+        [v compose:videoFile withConfig:opt withSuccess:^(NSURL * fileUrl) {
 
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:fileName];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:fileUrl];
             [wself.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         } withFaild:^(NSString *errorString) {
             CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorString];
