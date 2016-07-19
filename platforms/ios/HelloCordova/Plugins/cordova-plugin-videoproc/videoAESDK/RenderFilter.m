@@ -88,8 +88,7 @@ GLfloat quadVertexData [] = {
         GLModel * model = [[GLModel alloc]init];
         if (item.type == kMediaType_Picture) {
             mediaType = kMediaType_Picture ;
-            NSString * path = [[NSBundle mainBundle]pathForResource:@"t" ofType:@"png"];
-            UIImage * image = [UIImage imageWithContentsOfFile:path];
+            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
             pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
             model.image = image;
         }else if(item.type ==kMediaType_Text){
