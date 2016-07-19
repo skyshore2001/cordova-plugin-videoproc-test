@@ -19,6 +19,7 @@
     </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
