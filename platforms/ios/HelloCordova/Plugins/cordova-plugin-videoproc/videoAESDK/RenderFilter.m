@@ -41,6 +41,21 @@ NSString *const kFragShaderString = SHADER_STRING
  }
  );
 
+NSString *const kFrag2ShaderString = SHADER_STRING
+(
+ precision highp float;
+ precision mediump int;
+ varying highp vec2 textureCoordinate;
+ uniform sampler2D Sampler;
+ uniform  float brightness;
+ 
+ void main()
+ {
+     mediump vec4 out_Color = texture2D(Sampler, textureCoordinate);
+     gl_FragColor =vec4(out_Color.b,out_Color.g,out_Color.r,out_Color.a)*brightness;
+ }
+ );
+
 GLfloat quadVertexData [] = {
     -1.0 , -1.0, 1.0,
     1.0 , -1.0, 1.0,
@@ -88,7 +103,8 @@ GLfloat quadVertexData [] = {
         GLModel * model = [[GLModel alloc]init];
         if (item.type == kMediaType_Picture) {
             mediaType = kMediaType_Picture ;
-            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
+           NSString * path =  [[NSBundle mainBundle]pathForResource:@"1" ofType:@"png"];
+            UIImage * image = [UIImage imageWithContentsOfFile:path];
             pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
             model.image = image;
         }else if(item.type ==kMediaType_Text){
@@ -97,7 +113,7 @@ GLfloat quadVertexData [] = {
             mediaType = kMediaType_Text;
         }
         //programe 相关
-        GLuint programe = [filterProgram compileVShaderString:kVertShaderString withFShaderString:kFragShaderString];
+        GLuint programe = [filterProgram compileVShaderString:kVertShaderString withFShaderString:kFrag2ShaderString];
         GLuint position =  glGetAttribLocation(programe, "position");
         GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
         GLuint sample = glGetUniformLocation(programe, "Sampler");
