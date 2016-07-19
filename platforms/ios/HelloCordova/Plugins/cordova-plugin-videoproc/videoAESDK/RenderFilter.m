@@ -85,15 +85,16 @@ GLfloat quadVertexData [] = {
         CVPixelBufferRef pixelBuffer=NULL;
         CVOpenGLESTextureRef texture = NULL;
         kMediaType mediaType = kMediaType_unKnown;
+        GLModel * model = [[GLModel alloc]init];
         if (item.type == kMediaType_Picture) {
             mediaType = kMediaType_Picture ;
-            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
+            NSString * path = [[NSBundle mainBundle]pathForResource:@"t" ofType:@"png"];
+            UIImage * image = [UIImage imageWithContentsOfFile:path];
             pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
-            texture = [self bgraTextureForPixelBuffer:pixelBuffer];
+            model.image = image;
         }else if(item.type ==kMediaType_Text){
             RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
              pixelBuffer = [textPic convertViewToImage];
-             texture = [self bgraTextureForPixelBuffer:pixelBuffer];
             mediaType = kMediaType_Text;
         }
         //programe 相关
@@ -102,7 +103,7 @@ GLfloat quadVertexData [] = {
         GLuint textureSlot =  glGetAttribLocation(programe, "inputTextureCoordinate");
         GLuint sample = glGetUniformLocation(programe, "Sampler");
         GLuint brignessSlot = glGetUniformLocation(programe, "brightness");
-        GLModel * model = [[GLModel alloc]init];
+
         model.type = mediaType; 
         model.glPrograme = programe;
         model.glPositionSlot = position;
@@ -149,9 +150,29 @@ GLfloat quadVertexData [] = {
             }
             glUseProgram(model.glPrograme);
             if (model.pixelBuffer) {
-                CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
-                glActiveTexture(GL_TEXTURE1+index);
-                glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
+                CFDataRef dataFromImageDataProvider = NULL;
+                CVOpenGLESTextureRef  textTexture = NULL;
+                if (model.type == kMediaType_Picture) {
+                    glActiveTexture(GL_TEXTURE1+index);
+
+                    UIImage * img = model.image;
+                    CGImageRef newImageSource=img.CGImage;
+                    dataFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource));
+                    GLubyte *imageData = NULL;
+                    imageData = (GLubyte *)CFDataGetBytePtr(dataFromImageDataProvider);
+                    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,
+                                 (int)CGImageGetWidth(newImageSource),
+                                 (int)CGImageGetHeight(newImageSource),
+                                 0,
+                                 GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+                    glBindTexture(GL_TEXTURE_2D, 0);
+                }else
+                {
+                    CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
+                    glActiveTexture(GL_TEXTURE1+index);
+                    glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
+                }
+
                 [self setDefaultTextureAttributes];
                  glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
                 glUniform1i(model.sampleSlot,1+index);
@@ -159,18 +180,25 @@ GLfloat quadVertexData [] = {
                 glEnableVertexAttribArray(model.glTextureSlot);
                 if (model.type == kMediaType_Picture) {
                     glViewport((GLuint)item.pointX, (GLuint)item.pointY,(GLuint)item.width,(GLuint)item.height);
+                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 }else
                 {
                     glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
+                    glBlendFunc(GL_SRC_ALPHA,GL_ONE);
                 }
                 glUniform1f(model.brignessSlot, 1.0);
-                glBlendFunc(GL_SRC_ALPHA,GL_ONE);
                 glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
                 glEnableVertexAttribArray(model.glPositionSlot);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-                if (textTexture!=NULL) {
-                    CFRelease(textTexture);
-                    textTexture = NULL;
+                if(model.type == kMediaType_Text)
+                {
+                    if (textTexture!=NULL) {
+                        CFRelease(textTexture);
+                        textTexture = NULL;
+                    }
+                }else
+                {
+                    CFRelease(dataFromImageDataProvider);
                 }
             }
         }

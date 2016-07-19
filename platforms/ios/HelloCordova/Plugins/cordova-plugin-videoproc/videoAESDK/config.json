@@ -1,22 +1,26 @@
 {
     "items": [
-              
               {
-              "type": "text",
-              "value": "好好吃饭",
-              "x":100,
-              "y":50,
-              "from":0,
-              "to":-1,
+              "type": "audio",
+              "value": "audioFile"
+              },
+              {
+              "type": "image",
+              "value": "好好吃饭奥!",
+              "from": 0.0,
+              "to": 30.0,
+              "x": 0,
+              "y": 0,
+              "width":480,
+              "height":360
               },
               {
               "type": "text",
-              "value": "好好睡觉",
-              "x":100,
-              "y":250,
-              "from":0,
-              "to":10,
+              "value": "好好吃饭奥!",
+              "from": 0.0,
+              "to": 20.0,
+              "x": 120,
+              "y": 150
               }
-              
             ]
 }

@@ -17,5 +17,6 @@
 @property (nonatomic ,assign)CVOpenGLESTextureRef texture;
 @property (nonatomic ,assign)CVPixelBufferRef     pixelBuffer ;
 @property (nonatomic ,assign)GLuint brignessSlot;
-@property (nonatomic ,assign)GLuint index ; 
+@property (nonatomic ,assign)GLuint index ;
+@property (nonatomic ,strong)UIImage * image ; 
 @end
