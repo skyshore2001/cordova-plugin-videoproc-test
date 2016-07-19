@@ -40,6 +40,7 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		8D31D97CA2564B5EB3B1606D /* CDVVideoProc.m in Sources */ = {isa = PBXBuildFile; fileRef = DE7B226A897E409ABAD82F5F /* CDVVideoProc.m */; };
+		C6162F871D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C6162F861D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.m */; settings = {ASSET_TAGS = (); }; };
 		C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C619425B1D37F0EE0032E2BC /* CoreVideo.framework */; };
 		C61942671D37FA650032E2BC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942661D37FA650032E2BC /* OpenGLES.framework */; };
 		C61942691D37FC050032E2BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942681D37FC050032E2BC /* QuartzCore.framework */; };
@@ -127,6 +128,8 @@
 		7E7966DD1810823500FA85AD /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
 		7F74BD9F38D74791B98A815E /* CDVVideoProc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVVideoProc.h; path = "cordova-plugin-videoproc/CDVVideoProc.h"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* HelloCordova-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "HelloCordova-Info.plist"; path = "../HelloCordova-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		C6162F851D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		C6162F861D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		C619425B1D37F0EE0032E2BC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		C61942661D37FA650032E2BC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C61942681D37FC050032E2BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -334,6 +337,8 @@
 			children = (
 				C6961EFF1D3C769F0054BCBD /* AVAssetTrack+Transform.h */,
 				C6961F001D3C769F0054BCBD /* AVAssetTrack+Transform.m */,
+				C6162F851D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				C6162F861D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 				C6961F011D3C769F0054BCBD /* config.json */,
 				C6961F021D3C769F0054BCBD /* config1.json */,
 				C6961F031D3C769F0054BCBD /* config2.json */,
@@ -541,6 +546,7 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				C6961F351D3C76A00054BCBD /* RSChunk.m in Sources */,
 				C6961F2F1D3C76A00054BCBD /* GLESMath.c in Sources */,
+				C6162F871D3DC7ED00CB82C6 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				C6961F381D3C76A00054BCBD /* RSGLProgram.m in Sources */,
 				C6961F321D3C76A00054BCBD /* RenderFilter.m in Sources */,

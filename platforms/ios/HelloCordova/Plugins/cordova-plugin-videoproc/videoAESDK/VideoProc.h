@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef void (^SuccessBlock)(NSString * fileName);
+typedef void (^SuccessBlock)(NSURL * fileUrl);
 typedef void (^FaildBlock)(NSString * errorString);
 @interface VideoProc : NSObject
 

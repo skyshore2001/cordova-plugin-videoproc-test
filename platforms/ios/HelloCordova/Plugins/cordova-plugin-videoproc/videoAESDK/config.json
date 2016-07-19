@@ -1,19 +1,6 @@
 {
     "items": [
-                {
-                    "type": "audio",
-                    "value": "1.mp3"
-                },
-              {
-              "type": "image",
-              "value": "1.png",
-              "width":200,
-              "height":100,
-              "x":0,
-              "y":0,
-              "from":0,
-              "to":52
-              },
+              
               {
               "type": "text",
               "value": "好好吃饭",

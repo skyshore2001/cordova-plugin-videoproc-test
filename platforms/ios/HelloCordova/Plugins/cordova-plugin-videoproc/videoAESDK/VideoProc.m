@@ -15,6 +15,7 @@
 #import "RSVideoCompositionInstruction.h"
 #import "AVAssetTrack+Transform.h"
 #import "RSVideoCompositior.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
 @interface VideoProc()
 @property (nonatomic ,strong)NSString * videoFile ;
 @property (nonatomic ,strong)AVMutableComposition * mixComposition ;
@@ -22,9 +23,18 @@
 @property (nonatomic ,strong)NSArray  * configInfoArray;
 @property (nonatomic ,strong)RSExportSession * exportSession;
 @property (nonatomic ,strong)AVMutableVideoComposition * videoComposition;
+@property (nonatomic ,strong)ALAssetsLibrary * library ;
 @end
 @implementation VideoProc
-
+- (instancetype)init
+{
+    self = [super init];
+    if(!self)return nil;
+#ifdef kExportToLibrary
+    self.library = [[ALAssetsLibrary alloc]init];
+#endif
+    return self;
+}
 - (void)compose:(NSString *)videoFile withConfig:(NSDictionary *)configInfo withSuccess:(SuccessBlock)successcb withFaild:(FaildBlock)faildcb
 {
     self.configInfoArray  = [self _parseJsonString:configInfo];
@@ -35,9 +45,20 @@
     self.videoFile = videoFile;
     self.mainVideoChunk = [[RSChunk alloc]initWithUrlString:videoFile];
     [self _mixVideoAndAudioNeedMix:YES];
-    [self _doexportSuccess:^(NSString *fileName) {
+    [self _doexportSuccess:^(NSURL  *fileUrl) {
+
+#ifdef kExportToLibrary 
+    [self.library saveVideo:fileUrl toAlbum:@"导出视频" completion:^(NSURL *assetURL, NSError *error) {
+           UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"title" message:@"exportSuccess" delegate:nil cancelButtonTitle:@"cacle" otherButtonTitles:nil, nil];
+           [alter show];
+        } failure:^(NSError *error) {
+            UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"title" message:@"exportFaild" delegate:nil cancelButtonTitle:@"cacle" otherButtonTitles:nil, nil];
+            [alter show];
+ 
+        }];
+#endif
         if (successcb) {
-            successcb(fileName);
+            successcb(fileUrl);
         }
     } withFaild:^(NSString *errorString) {
         if (faildcb) {
@@ -111,7 +132,7 @@
         NSLog(@"process = %f",process);
     } withSuccess:^(AVAssetExportSession *exportSession) {
         if (scb) {
-            scb(exportSession.outputURL.absoluteString); 
+            scb(exportSession.outputURL); 
         }
     } withFaild:^(NSError *exportError) {
         if (fcb) {
