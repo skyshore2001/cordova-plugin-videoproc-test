@@ -54,47 +54,69 @@ app.initialize();
 var mediaRec = null;
 var recAudioName = "record";
 
-function getRecFile()
+/*
+@fn getRecFile(fn, doStartRec?=false)
+@param fn Function(recAudioFile)
+ */
+function getRecFile(fn, doStartRec)
 {
 	var file;
 	if (/iPhone|iPad/i.test(navigator.userAgent)) { // IOS
-		file = cordova.file.dataDirectory + recAudioName + ".wav";
+		var dirUrl = cordova.file.dataDirectory;
+		var fileName = recAudioName + ".wav";
+		file = dirUrl.replace('file://', '') + fileName;
+
+		if (doStartRec) {
+			// create the file
+			resolveLocalFileSystemURL(dirUrl, function (dirEntry) {
+				dirEntry.getFile(fileName, {create: true, exclusive: false}, function () {
+					fn(file);
+				});
+			});
+		}
+		else {
+			fn(file);
+		}
 	}
 	else { // ANDOIRD
 		file = cordova.file.externalDataDirectory + recAudioName + ".3gp";
+		fn(file);
 	}
-	return file;
 }
 
 function btnRecord_click(btn)
 {
-	var recAudioUrl = getRecFile();
-	if (mediaRec == null) {
-		mediaRec = new Media(recAudioUrl,
-			// success callback
-			function() {
-				console.log("recordAudio():Audio Success");
-				txtAudio2.value = recAudioUrl;
-				alert('录音完成');
-				endRecord();
-			},
+	getRecFile(record, mediaRec == null);
 
-			// error callback
-			function(err) {
-				if (err.code === undefined)
-					return;
-				console.log(err);
-				console.log("recordAudio():Audio Error: "+ err.code);
-				alert('录音失败');
-				endRecord();
-			}
-		);
-		// Record audio
-		mediaRec.startRecord();
-		btn.innerHTML = "结束录音";
-	}
-	else {
-		mediaRec.stopRecord();
+	function record(recAudioFile)
+	{
+		if (mediaRec == null) {
+			mediaRec = new Media(recAudioFile,
+				// success callback
+				function() {
+					console.log("recordAudio():Audio Success");
+					txtAudio2.value = recAudioFile;
+					alert('录音完成');
+					endRecord();
+				},
+
+				// error callback
+				function(err) {
+					if (err.code === undefined)
+						return;
+					console.log(err);
+					console.log("recordAudio():Audio Error: "+ err.code);
+					alert('录音失败:' + err.code);
+					endRecord();
+				}
+			);
+			// Record audio
+			mediaRec.startRecord();
+			btn.innerHTML = "结束录音";
+		}
+		else {
+			mediaRec.stopRecord();
+		}
 	}
 
 	function endRecord()
@@ -106,9 +128,9 @@ function btnRecord_click(btn)
 
 function btnCompose_click(btn)
 {
-    var videoFile = document.getElementById("txtVideo").value;
-    var audioFile = document.getElementById("txtAudio").value;
-    var audioFile2 = document.getElementById("txtAudio2").value;
+	var videoFile = document.getElementById("txtVideo").value;
+	var audioFile = document.getElementById("txtAudio").value;
+	var audioFile2 = document.getElementById("txtAudio2").value;
 
 	var opt = {
 		items: [
