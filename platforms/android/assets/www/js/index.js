@@ -50,10 +50,53 @@ var app = {
 
 app.initialize();
 
-function testit()
+///////////////////////////////////
+var recAudioUrl = "record.wav";
+var mediaRec = null;
+
+function btnRecord_click(btn)
+{
+	if (mediaRec == null) {
+		mediaRec = new Media(recAudioUrl,
+			// success callback
+			function() {
+				console.log("recordAudio():Audio Success");
+				txtAudio2.value = recAudioUrl;
+				alert('录音完成');
+				endRecord();
+			},
+
+			// error callback
+			function(err) {
+				if (err.code === undefined)
+					return;
+				console.log(err);
+				console.log("recordAudio():Audio Error: "+ err.code);
+				alert('录音失败');
+				endRecord();
+			}
+		);
+		// Record audio
+		mediaRec.startRecord();
+		btn.innerHTML = "结束录音";
+	}
+	else {
+		mediaRec.stopRecord();
+	}
+
+	function endRecord()
+	{
+		mediaRec = null;
+		btn.innerHTML = "开始录音";
+	}
+}
+
+function btnCompose_click(btn)
 {
     var videoFile = document.getElementById("txtVideo").value;
     var audioFile = document.getElementById("txtAudio").value;
+    var audioFile2 = document.getElementById("txtAudio2").value;
+
 	var opt = {
 		items: [
 			{type: 'audio', value: audioFile}, // 音频
@@ -62,14 +105,21 @@ function testit()
 			{type: 'text', value: '配音: 张无忌 - 网友2', from: 16.0, to: 17.0, x: 120, y: 150} // 文本2
 		]
 	};
+	if (audioFile2) {
+		opt.items.push( {type: 'audio', value: audioFile2} ); // 录音
+	}
 
 	videoproc.compose(videoFile, opt, onSuccess, onFail);
 	
 	function onSuccess(file) {
-		alert('generate file: ' + file);
+		txtVideoResult.value = file;
+		alert('合成完成');
+		videoResult.src = file;
+		videoResult.play();
 	}
 
 	function onFail(msg) {
 		alert('fail: ' + msg);
 	}
 }
+

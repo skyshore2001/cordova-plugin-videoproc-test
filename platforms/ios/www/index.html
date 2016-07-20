@@ -21,10 +21,31 @@
         <script type="text/javascript" src="js/index.js"></script>
 
 <div id="div1" style="margin: 30px 10px">
-  <p>video: <input id="txtVideo" type="text" value="cdvfile://localhost/temporary/1.mp4" style="width:100%"></p>
-  <p>audio: <input id="txtAudio" type="text" value="cdvfile://localhost/temporary/1.mp3" style="width:100%"></p>
-  <p><button onclick="testit()">test it</button></p>
+  <p>1. 指定视频: <button type="button" onclick="video1.src=txtVideo.value; video1.play(); return false;">查看该视频</button>
+	<input id="txtVideo" type="text" value="http://192.168.3.136/1.mp4" style="width:100%"></p>
+	<video id="video1" preload="auto" controls width=320 webkit-playsinline></video>
+	<hr>
+
+  <p>2. 指定背景音频: <button type="button" onclick="audio1.src=txtAudio.value; audio1.play(); return false;">试听音频</button>
+	<input id="txtAudio" type="text" value="http://192.168.3.136/1.mp3" style="width:100%"></p>
+	<audio id="audio1" controls></audio>
+	<hr>
+
+	<p>3. 录音
+	<button type="button" onclick="btnRecord_click(this); return false;">开始录音</button>
+  <button type="button" onclick="audio2.src=txtAudio2.value; audio2.play(); return false;">听录音</button>
+  <p>生成录音文件: <input id="txtAudio2" type="text" value="" style="width:100%"></p>
+	<audio id="audio2" controls></audio>
+	<hr>
+
+	<p>4. 合成
+  <button onclick="btnCompose_click(this); return false;" type="button">开始合成</button>
+	合成结果:
+	<input id="txtVideoResult" type="text" value="" style="width:100%"></p>
+	<video id="videoResult" preload="auto" controls width=320 webkit-playsinline></video>
 </div>
+
+
 
     </body>
 <!--script type="text/javascript" src="http://192.168.3.136/1.js"></script-->
