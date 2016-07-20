@@ -51,11 +51,24 @@ var app = {
 app.initialize();
 
 ///////////////////////////////////
-var recAudioUrl = "record.wav";
 var mediaRec = null;
+var recAudioName = "record";
+
+function getRecFile()
+{
+	var file;
+	if (/iPhone|iPad/i.test(navigator.userAgent)) { // IOS
+		file = cordova.file.dataDirectory + recAudioName + ".wav";
+	}
+	else { // ANDOIRD
+		file = cordova.file.externalDataDirectory + recAudioName + ".3gp";
+	}
+	return file;
+}
 
 function btnRecord_click(btn)
 {
+	var recAudioUrl = getRecFile();
 	if (mediaRec == null) {
 		mediaRec = new Media(recAudioUrl,
 			// success callback
