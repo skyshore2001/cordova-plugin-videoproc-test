@@ -131,7 +131,7 @@ function extName(f)
 	var n= f.lastIndexOf('.');
 	if (n <= 0)
 		return "";
-	return f.substr(-n-1);
+	return f.substr(n);
 }
 
 function btnCompose_click(btn)
@@ -147,14 +147,16 @@ function btnCompose_click(btn)
 
 	var ft = new FileTransfer();
 	ft.download(videoUrl, videoFile, function (entry) {
-		alert('down video ok');
+		alert('down video ok: ' + videoFile);
+		console.log(videoFile);
 		++ n;
 		onDownOk();
 	}, onFileTransferFail);
 
 	var ft2 = new FileTransfer();
 	ft2.download(audioUrl, audioFile, function (entry) {
-		alert('down audio ok');
+		alert('down audio ok: ' + audioFile);
+		console.log(audioFile);
 		++ n;
 		onDownOk();
 	}, onFileTransferFail);
@@ -176,7 +178,7 @@ function btnCompose_click(btn)
 
 function compose(videoFile, audioFile, audioFile2)
 {
-alert('compose');
+	alert('compose');
 	var opt = {
 		items: [
 			{type: 'audio', value: audioFile}, // 音频

@@ -91,6 +91,8 @@
 
 - (NSURL*)mediaUrl
 {
+    if (_mediaPath ==nil)
+        return 0;
     return [NSURL fileURLWithPath:_mediaPath];
 }
 
