@@ -144,7 +144,7 @@ function btnPlayRecAudio_click(btn)
 
 			// error callback
 			function(err) {
-				if (err.code === undefined)
+				if (err.code === undefined || err.code == 0)
 					return;
 				console.log(err);
 				console.log("play media error: "+ err.code);
