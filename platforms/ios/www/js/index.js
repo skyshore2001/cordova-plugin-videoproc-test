@@ -52,8 +52,13 @@ app.initialize();
 
 ///////////////////////////////////
 var mediaRec = null;
+var mediaPlay = null;
 var recAudioName = "record";
 
+function isIOS()
+{
+	return /iPhone|iPad/i.test(navigator.userAgent);
+}
 /*
 @fn getRecFile(fn, doStartRec?=false)
 @param fn Function(recAudioFile)
@@ -61,7 +66,7 @@ var recAudioName = "record";
 function getRecFile(fn, doStartRec)
 {
 	var file;
-	if (/iPhone|iPad/i.test(navigator.userAgent)) { // IOS
+	if (isIOS()) { // IOS
 		var dirUrl = cordova.file.dataDirectory;
 		var fileName = recAudioName + ".wav";
 		file = dirUrl.replace('file://', '') + fileName;
@@ -123,6 +128,44 @@ function btnRecord_click(btn)
 	{
 		mediaRec = null;
 		btn.innerHTML = "开始录音";
+	}
+}
+
+function btnPlayRecAudio_click(btn)
+{
+	var audioFile2 = document.getElementById("txtAudio2").value;
+
+	if (mediaPlay == null) {
+		mediaPlay = new Media(audioFile2,
+			function() {
+				console.log("play media success");
+				stop();
+			},
+
+			// error callback
+			function(err) {
+				if (err.code === undefined)
+					return;
+				console.log(err);
+				console.log("play media error: "+ err.code);
+				alert('fail to play:' + err.code);
+				stop();
+			}
+		);
+		mediaPlay.play();
+		btn.innerHTML = "Stop";
+	}
+	else {
+		stop();
+	}
+
+	function stop()
+	{
+		if (mediaPlay) {
+			mediaPlay.stop();
+			mediaPlay = null;
+		}
+		btn.innerHTML = "Play";
 	}
 }
 
