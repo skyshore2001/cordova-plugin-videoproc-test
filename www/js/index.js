@@ -52,8 +52,13 @@ app.initialize();
 
 ///////////////////////////////////
 var mediaRec = null;
+var mediaPlay = null;
 var recAudioName = "record";
 
+function isIOS()
+{
+	return /iPhone|iPad/i.test(navigator.userAgent);
+}
 /*
 @fn getRecFile(fn, doStartRec?=false)
 @param fn Function(recAudioFile)
@@ -61,7 +66,7 @@ var recAudioName = "record";
 function getRecFile(fn, doStartRec)
 {
 	var file;
-	if (/iPhone|iPad/i.test(navigator.userAgent)) { // IOS
+	if (isIOS()) { // IOS
 		var dirUrl = cordova.file.dataDirectory;
 		var fileName = recAudioName + ".wav";
 		file = dirUrl.replace('file://', '') + fileName;
@@ -126,12 +131,50 @@ function btnRecord_click(btn)
 	}
 }
 
+function btnPlayRecAudio_click(btn)
+{
+	var audioFile2 = document.getElementById("txtAudio2").value;
+
+	if (mediaPlay == null) {
+		mediaPlay = new Media(audioFile2,
+			function() {
+				console.log("play media success");
+				stop();
+			},
+
+			// error callback
+			function(err) {
+				if (err.code === undefined)
+					return;
+				console.log(err);
+				console.log("play media error: "+ err.code);
+				alert('fail to play:' + err.code);
+				stop();
+			}
+		);
+		mediaPlay.play();
+		btn.innerHTML = "Stop";
+	}
+	else {
+		stop();
+	}
+
+	function stop()
+	{
+		if (mediaPlay) {
+			mediaPlay.stop();
+			mediaPlay = null;
+		}
+		btn.innerHTML = "Play";
+	}
+}
+
 function extName(f)
 {
 	var n= f.lastIndexOf('.');
 	if (n <= 0)
 		return "";
-	return f.substr(-n-1);
+	return f.substr(n);
 }
 
 function btnCompose_click(btn)
@@ -147,14 +190,16 @@ function btnCompose_click(btn)
 
 	var ft = new FileTransfer();
 	ft.download(videoUrl, videoFile, function (entry) {
-		alert('down video ok');
+		alert('down video ok: ' + videoFile);
+		console.log(videoFile);
 		++ n;
 		onDownOk();
 	}, onFileTransferFail);
 
 	var ft2 = new FileTransfer();
 	ft2.download(audioUrl, audioFile, function (entry) {
-		alert('down audio ok');
+		alert('down audio ok: ' + audioFile);
+		console.log(audioFile);
 		++ n;
 		onDownOk();
 	}, onFileTransferFail);
@@ -176,7 +221,7 @@ function btnCompose_click(btn)
 
 function compose(videoFile, audioFile, audioFile2)
 {
-alert('compose');
+	alert('compose');
 	var opt = {
 		items: [
 			{type: 'audio', value: audioFile}, // 音频
