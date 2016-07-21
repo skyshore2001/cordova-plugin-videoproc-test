@@ -18,7 +18,7 @@
 #endif
 
 #ifndef kExportToLibrary
-#define kExportToLibrary
+//#define kExportToLibrary
 #endif
 
 #define kTailDuration  2.0f 
