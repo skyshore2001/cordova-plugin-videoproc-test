@@ -40,6 +40,45 @@ plugin videoproc.
 
         <header-file src="src/ios/CDVVideoProc.h" />
         <source-file src="src/ios/CDVVideoProc.m" />
+
+<header-file src="src/ios/videoAESDK/ALAssetsLibrary+CustomPhotoAlbum.h" />
+<source-file src="src/ios/videoAESDK/ALAssetsLibrary+CustomPhotoAlbum.m" />
+<header-file src="src/ios/videoAESDK/AVAssetTrack+Transform.h" />
+<source-file src="src/ios/videoAESDK/AVAssetTrack+Transform.m" />
+<header-file src="src/ios/videoAESDK/ConfigItem.h" />
+<source-file src="src/ios/videoAESDK/ConfigItem.m" />
+<source-file src="src/ios/videoAESDK/GLESMath.c" />
+<header-file src="src/ios/videoAESDK/GLESMath.h" />
+<header-file src="src/ios/videoAESDK/GLModel.h" />
+<source-file src="src/ios/videoAESDK/GLModel.m" />
+<header-file src="src/ios/videoAESDK/RenderFilter.h" />
+<source-file src="src/ios/videoAESDK/RenderFilter.m" />
+<header-file src="src/ios/videoAESDK/RSAudioChannel.h" />
+<source-file src="src/ios/videoAESDK/RSAudioChannel.mm" />
+<header-file src="src/ios/videoAESDK/RSBaseMedia.h" />
+<source-file src="src/ios/videoAESDK/RSBaseMedia.m" />
+<header-file src="src/ios/videoAESDK/RSChunk.h" />
+<source-file src="src/ios/videoAESDK/RSChunk.m" />
+<header-file src="src/ios/videoAESDK/RSExportSession.h" />
+<source-file src="src/ios/videoAESDK/RSExportSession.m" />
+<header-file src="src/ios/videoAESDK/RSGLFilter.h" />
+<source-file src="src/ios/videoAESDK/RSGLFilter.m" />
+<header-file src="src/ios/videoAESDK/RSGLProgram.h" />
+<source-file src="src/ios/videoAESDK/RSGLProgram.m" />
+<header-file src="src/ios/videoAESDK/RSMVString.h" />
+<source-file src="src/ios/videoAESDK/RSMVString.m" />
+<header-file src="src/ios/videoAESDK/RSVideoChannel.h" />
+<source-file src="src/ios/videoAESDK/RSVideoChannel.m" />
+<header-file src="src/ios/videoAESDK/RSVideoCompositionInstruction.h" />
+<source-file src="src/ios/videoAESDK/RSVideoCompositionInstruction.m" />
+<header-file src="src/ios/videoAESDK/RSVideoCompositior.h" />
+<source-file src="src/ios/videoAESDK/RSVideoCompositior.m" />
+<header-file src="src/ios/videoAESDK/Uitiltes.h" />
+<source-file src="src/ios/videoAESDK/Uitiltes.m" />
+<header-file src="src/ios/videoAESDK/Video_Const.h" />
+<header-file src="src/ios/videoAESDK/VideoProc.h" />
+<source-file src="src/ios/videoAESDK/VideoProc.m" />
+				
     </platform>
 
     <!-- browser -->
