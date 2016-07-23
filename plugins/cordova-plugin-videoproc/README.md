@@ -11,7 +11,7 @@
 
 ### 视频合成
 
-	window.videoproc.compose(videoFile, opt={@items}, onSuccess, onFail)
+	window.videoproc.compose(videoFile, opt={@items, replaceAudio?=false}, onSuccess, onFail)
 
 **参数**
 
@@ -21,6 +21,8 @@
 	- value: 如果type为audio或image, 则value表示文件路径；如果type为text, value表示文本内容。
 	- from,to: Double. 指定从第几秒到第几秒添加内容。可缺省。如果from未指定，则从一开始就添加。如果to未指定，则添加该内容直到视频最后。TODO: 考虑是否支持按帧数，支持负数;
 	- x, y: Integer. 起始位置。单位为像素。仅对type为image和text有效，表示在指定位置合成图片或文本。TODO: 是否支持百分率。
+
+- opt.replaceAudio: Boolean. 缺省值为false. 如果值为true, 则用新的音频替代原音频，即删除原视频中的所有音轨。
 
 - onSuccess: Function(newVideoFile). 操作成功时的回调。
 	- newVideoFile: 生成的新的视频文件。
