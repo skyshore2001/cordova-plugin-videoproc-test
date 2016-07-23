@@ -33,8 +33,8 @@
 
     <p>3. 录音
     <button type="button" onclick="btnRecord_click(this); return false;">开始录音</button>
-    <button type="button" onclick="audio2.src=txtAudio2.value; audio2.play(); return false;">听录音</button>
-    <button type="button" onclick="btnPlayRecAudio_click(this);return false;">DirectPlay</button>
+    <button type="button" onclick="btnSetRecAudio_click(this);return false;">听录音</button>
+    <button type="button" onclick="btnPlayRecAudio_click(this);return false;">直接播放</button>
     <p>生成录音文件: <input id="txtAudio2" type="text" value="" style="width:100%"></p>
     <audio id="audio2" controls></audio>
     <hr>

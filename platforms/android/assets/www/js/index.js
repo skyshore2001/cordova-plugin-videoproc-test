@@ -131,6 +131,14 @@ function btnRecord_click(btn)
 	}
 }
 
+function btnSetRecAudio_click(btn)
+{
+	if (! confirm('部分IOS手机上在audio标签中播放wav音频会造成播放问题，是否继续? (可点直接播放听录音)'))
+		return;
+	audio2.src=txtAudio2.value;
+	audio2.play(); 
+}
+
 function btnPlayRecAudio_click(btn)
 {
 	var audioFile2 = document.getElementById("txtAudio2").value;
@@ -179,6 +187,7 @@ function extName(f)
 
 function btnCompose_click(btn)
 {
+	alert('开始合成: 先下载视频、音频到本地');
     var videoUrl = document.getElementById("txtVideo").value;
     var audioUrl = document.getElementById("txtAudio").value;
 	var audioFile2 = document.getElementById("txtAudio2").value;
