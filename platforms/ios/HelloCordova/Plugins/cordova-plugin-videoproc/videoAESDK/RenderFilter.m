@@ -103,13 +103,10 @@ GLfloat quadVertexData [] = {
         GLModel * model = [[GLModel alloc]init];
         if (item.type == kMediaType_Picture) {
             mediaType = kMediaType_Picture ;
-//           NSString * path =  [[NSBundle mainBundle]pathForResource:@"1" ofType:@"png"];
             UIImage * image = [UIImage imageWithContentsOfFile:item.value];
-            pixelBuffer = [Uitiltes cVPixelBufferFrome:image];
             model.image = image;
         }else if(item.type ==kMediaType_Text){
             RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
-             pixelBuffer = [textPic convertViewToImage];
             mediaType = kMediaType_Text;
         }
         //programe 相关
@@ -156,6 +153,7 @@ GLfloat quadVertexData [] = {
         [self renderWithTime:compositionTime];
     }
     if (programeSlots.count!=0) {
+        int j = 1 ;
         for (int index = 0 ; index < programeSlots.count; index++) {
             GLModel * model = programeSlots[index];
             ConfigItem * item = self.configItemsArray[model.index];
@@ -164,57 +162,63 @@ GLfloat quadVertexData [] = {
                 continue ; 
             }
             glUseProgram(model.glPrograme);
-            if (model.pixelBuffer) {
-                CFDataRef dataFromImageDataProvider = NULL;
-                CVOpenGLESTextureRef  textTexture = NULL;
-                if (model.type == kMediaType_Picture) {
-                    glActiveTexture(GL_TEXTURE1+index);
-
-                    UIImage * img = model.image;
-                    CGImageRef newImageSource=img.CGImage;
-                    dataFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource));
-                    GLubyte *imageData = NULL;
-                    imageData = (GLubyte *)CFDataGetBytePtr(dataFromImageDataProvider);
-                    glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,
-                                 (int)CGImageGetWidth(newImageSource),
-                                 (int)CGImageGetHeight(newImageSource),
-                                 0,
-                                 GL_RGBA, GL_UNSIGNED_BYTE, imageData);
-                    glBindTexture(GL_TEXTURE_2D, 0);
-                }else
-                {
-                    CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
-                    glActiveTexture(GL_TEXTURE1+index);
-                    glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
+            CFDataRef dataFromImageDataProvider = NULL;
+            CVOpenGLESTextureRef  textTexture = NULL;
+            CVPixelBufferRef textBuffer = NULL;
+            if (model.type == kMediaType_Picture) {
+                glActiveTexture(GL_TEXTURE1+j);
+                UIImage * img = model.image;
+                CGImageRef newImageSource=img.CGImage;
+                dataFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource));
+                GLubyte *imageData = NULL;
+                imageData = (GLubyte *)CFDataGetBytePtr(dataFromImageDataProvider);
+                glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,
+                             (int)CGImageGetWidth(newImageSource),
+                             (int)CGImageGetHeight(newImageSource),
+                             0,
+                             GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+                glBindTexture(GL_TEXTURE_2D, 0);
+                glUniform1i(model.sampleSlot,j);
+                j++;
+            }else
+            {
+                RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
+                textBuffer = [textPic convertViewToImage];
+                CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
+                glActiveTexture(GL_TEXTURE15);
+                glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
+                glUniform1i(model.sampleSlot,15);
+            }
+            
+            [self setDefaultTextureAttributes];
+             glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
+            glVertexAttribPointer(model.glTextureSlot, 2, GL_FLOAT, 0, 0,[[self class] textureCoordinatesForRotation:kGPUImageNoRotation]);
+            glEnableVertexAttribArray(model.glTextureSlot);
+            if (model.type == kMediaType_Picture) {
+                glViewport((GLuint)item.pointX, (GLuint)item.pointY,(GLuint)item.width,(GLuint)item.height);
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            }else
+            {
+                glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
+                glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+            }
+            glUniform1f(model.brignessSlot, 1.0);
+            glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
+            glEnableVertexAttribArray(model.glPositionSlot);
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            if(model.type == kMediaType_Text)
+            {
+                if (textBuffer!=NULL) {
+                    CVPixelBufferRelease(textBuffer);
+                    textBuffer = NULL;
                 }
-
-                [self setDefaultTextureAttributes];
-                 glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
-                glUniform1i(model.sampleSlot,1+index);
-                glVertexAttribPointer(model.glTextureSlot, 2, GL_FLOAT, 0, 0,[[self class] textureCoordinatesForRotation:kGPUImageNoRotation]);
-                glEnableVertexAttribArray(model.glTextureSlot);
-                if (model.type == kMediaType_Picture) {
-                    glViewport((GLuint)item.pointX, (GLuint)item.pointY,(GLuint)item.width,(GLuint)item.height);
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                }else
-                {
-                    glViewport(0, 0, (int)CVPixelBufferGetWidth(destinationPixelBuffer), (int)CVPixelBufferGetHeight(destinationPixelBuffer));
-                    glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+                if (textTexture!=NULL) {
+                    CFRelease(textTexture);
+                    textTexture = NULL;
                 }
-                glUniform1f(model.brignessSlot, 1.0);
-                glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
-                glEnableVertexAttribArray(model.glPositionSlot);
-                glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-                if(model.type == kMediaType_Text)
-                {
-                    if (textTexture!=NULL) {
-                        CFRelease(textTexture);
-                        textTexture = NULL;
-                    }
-                }else
-                {
-                    CFRelease(dataFromImageDataProvider);
-                }
+            }else
+            {
+                CFRelease(dataFromImageDataProvider);
             }
         }
     }
