@@ -22,7 +22,7 @@
 #endif
 
 #define kTailDuration  2.0f 
-
+//定义了字体的大小
 #define kFontSize  50
 
 typedef enum{

@@ -21,6 +21,12 @@
         lable.textColor = [UIColor whiteColor];
         lable.textAlignment  = NSTextAlignmentCenter;
         lable.backgroundColor = [UIColor blackColor];
+//        阴影
+        lable.shadowColor = [UIColor grayColor];
+        lable.shadowOffset = CGSizeMake(3, 3);
+        lable.layer.shadowOpacity=1;//透明度
+        lable.layer.shadowRadius=3;//半径
+        
         self.backgroundColor = [UIColor blackColor];
         lable.font = [UIFont systemFontOfSize:size];
         [self addSubview:lable];
