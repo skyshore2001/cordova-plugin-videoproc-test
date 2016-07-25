@@ -184,7 +184,7 @@ GLfloat quadVertexData [] = {
             {
                 RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
                 textBuffer = [textPic convertViewToImage];
-                CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:model.pixelBuffer];
+                CVOpenGLESTextureRef  textTexture = [self bgraTextureForPixelBuffer:textBuffer];
                 glActiveTexture(GL_TEXTURE15);
                 glBindTexture(CVOpenGLESTextureGetTarget(textTexture), CVOpenGLESTextureGetName(textTexture));
                 glUniform1i(model.sampleSlot,15);
