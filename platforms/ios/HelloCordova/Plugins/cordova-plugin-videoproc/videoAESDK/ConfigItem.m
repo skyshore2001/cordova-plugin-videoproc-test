@@ -23,4 +23,19 @@
     self.width = 0 ;
     return self;
 }
+- (NSInteger)frome
+{
+    if (_frome <= 0) {
+       return  0;
+    }
+    
+    return _frome;
+}
+- (NSInteger)to
+{
+    if (_to<=0) {
+        return -1;
+    }
+    return _to;
+}
 @end

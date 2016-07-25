@@ -24,12 +24,14 @@
 @property (nonatomic ,strong)RSExportSession * exportSession;
 @property (nonatomic ,strong)AVMutableVideoComposition * videoComposition;
 @property (nonatomic ,strong)ALAssetsLibrary * library ;
+@property (nonatomic ,assign)BOOL               replaceOrignAudio;
 @end
 @implementation VideoProc
 - (instancetype)init
 {
     self = [super init];
     if(!self)return nil;
+    self.replaceOrignAudio = NO;
 #ifdef kExportToLibrary
     self.library = [[ALAssetsLibrary alloc]init];
 #endif
@@ -44,7 +46,7 @@
     }
     self.videoFile = videoFile;
     self.mainVideoChunk = [[RSChunk alloc]initWithUrlString:videoFile];
-    [self _mixVideoAndAudioNeedMix:YES];
+    [self _mixVideoAndAudioNeedMix:!_replaceOrignAudio];
     [self _doexportSuccess:^(NSURL  *fileUrl) {
 
 #ifdef kExportToLibrary 
@@ -70,6 +72,7 @@
 - (NSArray *)_parseJsonString:(NSDictionary *)config
 {
     NSMutableArray * configInfo = [NSMutableArray array];
+    _replaceOrignAudio = [[config objectForKey:@"replaceAudio"]boolValue];
     NSArray * items = [config objectForKey:@"items"];
     for (NSDictionary * item in items) {
         ConfigItem * configItem = [[ConfigItem alloc]init];
