@@ -25,6 +25,9 @@
 @property (nonatomic ,strong)AVMutableVideoComposition * videoComposition;
 @property (nonatomic ,strong)ALAssetsLibrary * library ;
 @property (nonatomic ,assign)BOOL               replaceOrignAudio;
+@property (nonatomic ,assign)CGFloat            videoVolume;
+@property (nonatomic ,strong)AVMutableAudioMix * audioMix;
+@property (nonatomic ,strong)NSMutableArray * audioArray ;
 @end
 @implementation VideoProc
 - (instancetype)init
@@ -73,6 +76,13 @@
 {
     NSMutableArray * configInfo = [NSMutableArray array];
     _replaceOrignAudio = [[config objectForKey:@"replaceAudio"]boolValue];
+    _videoVolume = [[config objectForKey:@"videoVolume"]floatValue];
+    if (_videoVolume>1) {
+        _videoVolume = 1.0;
+    }
+    if (_videoVolume<0) {
+        _videoVolume = 0;
+    }
     NSArray * items = [config objectForKey:@"items"];
     for (NSDictionary * item in items) {
         ConfigItem * configItem = [[ConfigItem alloc]init];
@@ -84,6 +94,7 @@
         configItem.pointY = [[item objectForKey:@"y"]integerValue];
         configItem.width = [[item objectForKey:@"width"]integerValue];
         configItem.height = [[item objectForKey:@"height"]integerValue];
+        configItem.volume = [[item objectForKey:@"volume"]floatValue];  
         [configInfo addObject:configItem];
     }
     return configInfo;
@@ -92,6 +103,7 @@
 
 - (void)_mixVideoAndAudioNeedMix:(BOOL)needMix
 {
+    _audioArray = [NSMutableArray array];
     CGSize  tempNatureSize = [self.mixComposition naturalSize];
     self.mixComposition = [AVMutableComposition composition];
     AVMutableCompositionTrack * videoTrack = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
@@ -99,14 +111,19 @@
     if (needMix) {
         AVMutableCompositionTrack * orignAudioTrack = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
         [orignAudioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:self.mainVideoChunk.audio.audioTrack atTime:kCMTimeZero error:nil];
+        AVMutableAudioMixInputParameters *videoParmaters= [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:orignAudioTrack];
+        [videoParmaters setVolume:_videoVolume atTime:kCMTimeZero];
+        [_audioArray addObject:videoParmaters];
     }
     for (ConfigItem *item in self.configInfoArray) {
         if (item.type == kMediaType_Audio) {
 //            NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
-            
             RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
             AVMutableCompositionTrack * audioTrack  = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
+            AVMutableAudioMixInputParameters *videoParmaters= [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
+            [videoParmaters setVolume:item.volume atTime:kCMTimeZero];
+            [_audioArray addObject:videoParmaters];
         }
     }
 #ifdef ImageAndText
@@ -124,6 +141,8 @@
 
 - (void)_doexportSuccess:(SuccessBlock)scb withFaild:(FaildBlock)fcb;
 {
+    _audioMix = [AVMutableAudioMix audioMix];
+    _audioMix.inputParameters = _audioArray;
     NSString * videoPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSAllDomainsMask, YES)[0];
     videoPath = [videoPath stringByAppendingPathComponent:@"video.mp4"];
     NSFileManager * fileManager = [NSFileManager defaultManager];
@@ -133,6 +152,7 @@
                                                      withOutPutURL:fileUrl
                                               withVideoComposition:self.videoComposition
                                                       withAudioMix:nil];
+    self.exportSession.audioMix = _audioMix;
     [self.exportSession doExportWithProcess:^(CGFloat process) {
         NSLog(@"process = %f",process);
     } withSuccess:^(AVAssetExportSession *exportSession) {

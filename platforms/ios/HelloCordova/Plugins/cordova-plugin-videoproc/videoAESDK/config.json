@@ -1,8 +1,11 @@
 {
+    "replaceAudio":true,
+    "videoVolume" :1.0,
     "items": [
               {
               "type": "audio",
-              "value": "audioFile"
+              "value": "audioFile",
+              "volume":0.4
               },
               {
               "type": "image",

@@ -21,6 +21,7 @@
     self.pointX = 0 ;
     self.height = 0;
     self.width = 0 ;
+    self.volume = 1.0;
     return self;
 }
 - (NSInteger)frome
@@ -37,5 +38,15 @@
         return -1;
     }
     return _to;
+}
+- (CGFloat)volume
+{
+    if (_volume<=0) {
+        _volume = 0;
+    }
+    if (_volume>=1) {
+        _volume = 1.0; 
+    }
+    return _volume;
 }
 @end
