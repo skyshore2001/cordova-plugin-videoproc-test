@@ -1,19 +1,11 @@
 {
     "replaceAudio":false,
-    "videoVolume" :0,
+    "videoVolume" :0.0,
     "items": [
                   {
                   "type": "audio",
                   "value": "audioFile",
                   "volume":1.0
-                  },
-                  {
-                  "type": "text",
-                  "value": "好好吃饭奥!",
-                  "from": 0.0,
-                  "to": 20.0,
-                  "x": 120,
-                  "y": 150
                   }
               ]
 }
