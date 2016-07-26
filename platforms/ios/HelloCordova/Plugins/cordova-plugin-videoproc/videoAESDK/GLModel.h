@@ -16,5 +16,6 @@
 @property (nonatomic ,assign)GLuint sampleSlot ;
 @property (nonatomic ,assign)GLuint brignessSlot;
 @property (nonatomic ,assign)GLuint index ;
-@property (nonatomic ,strong)UIImage * image ; 
+@property (nonatomic ,strong)UIImage * image ;
+@property (nonatomic ,assign)CFDataRef textFromImageDataProvider ;
 @end

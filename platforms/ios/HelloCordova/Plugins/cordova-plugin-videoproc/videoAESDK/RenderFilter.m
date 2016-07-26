@@ -127,6 +127,8 @@ GLfloat quadVertexData [] = {
         model.glTextureSlot = textureSlot;
         model.brignessSlot = brignessSlot;
         model.index  = index;
+        CGImageRef newImageSource = model.image.CGImage;
+        model.textFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource)) ;
         glEnableVertexAttribArray(model.glPositionSlot);
         glEnableVertexAttribArray(model.glTextureSlot);
         [programeSlots addObject:model];
@@ -168,18 +170,14 @@ GLfloat quadVertexData [] = {
 //            if (model.pixelBuffer) {
             
                 CFDataRef dataFromImageDataProvider = NULL;
-                CFDataRef textFromImageDataProvider = NULL;
                 if (model.type == kMediaType_Picture) {
                     glActiveTexture(GL_TEXTURE1+j);
-
-                    UIImage * img = model.image;
-                    CGImageRef newImageSource=img.CGImage;
-                    dataFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource));
+                    dataFromImageDataProvider = model.textFromImageDataProvider;
                     GLubyte *imageData = NULL;
                     imageData = (GLubyte *)CFDataGetBytePtr(dataFromImageDataProvider);
                     glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,
-                                 (int)CGImageGetWidth(newImageSource),
-                                 (int)CGImageGetHeight(newImageSource),
+                                 (int)CGImageGetWidth(model.image.CGImage),
+                                 (int)CGImageGetHeight(model.image.CGImage),
                                  0,
                                  GL_RGBA, GL_UNSIGNED_BYTE, imageData);
                     glBindTexture(GL_TEXTURE_2D, 0);
@@ -188,13 +186,12 @@ GLfloat quadVertexData [] = {
                 }else if(model.type == kMediaType_Text)
                 {
                     glActiveTexture(GL_TEXTURE7);
-                    CGImageRef newImageSource=model.image.CGImage;
-                    textFromImageDataProvider = CGDataProviderCopyData(CGImageGetDataProvider(newImageSource));
+                    dataFromImageDataProvider = model.textFromImageDataProvider;
                     GLubyte *imageData = NULL;
-                    imageData = (GLubyte *)CFDataGetBytePtr(textFromImageDataProvider);
+                    imageData = (GLubyte *)CFDataGetBytePtr(dataFromImageDataProvider);
                     glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,
-                                 (int)CGImageGetWidth(newImageSource),
-                                 (int)CGImageGetHeight(newImageSource),
+                                 (int)CGImageGetWidth(model.image.CGImage),
+                                 (int)CGImageGetHeight(model.image.CGImage),
                                  0,
                                  GL_RGBA, GL_UNSIGNED_BYTE, imageData);
                     glBindTexture(GL_TEXTURE_2D, 0);
@@ -217,19 +214,19 @@ GLfloat quadVertexData [] = {
                 glVertexAttribPointer(model.glPositionSlot, 3, GL_FLOAT, 0, 0,quadVertexData);
                 glEnableVertexAttribArray(model.glPositionSlot);
                 glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-                if(model.type == kMediaType_Text)
-                {
-                    if (textFromImageDataProvider!=NULL) {
-                        CFRelease(textFromImageDataProvider);
-                        textFromImageDataProvider = NULL;
-                    }
-                }else
-                {
-                    if (dataFromImageDataProvider!=NULL) {
-                        CFRelease(dataFromImageDataProvider);
-                        dataFromImageDataProvider = NULL;
-                    }
-                }
+//                if(model.type == kMediaType_Text)
+//                {
+//                    if (textFromImageDataProvider!=NULL) {
+//                        CFRelease(textFromImageDataProvider);
+//                        textFromImageDataProvider = NULL;
+//                    }
+//                }else
+//                {
+//                    if (dataFromImageDataProvider!=NULL) {
+//                        CFRelease(dataFromImageDataProvider);
+//                        dataFromImageDataProvider = NULL;
+//                    }
+//                }
 //            }
         }
     }
@@ -279,5 +276,13 @@ bail:
         CFRelease(destTexture);
         destTexture = NULL;
     }
+    for (int index = 0 ; index < programeSlots.count; index++) {
+        GLModel * model = programeSlots[index];
+        if (model.textFromImageDataProvider) {
+            CFRelease(model.textFromImageDataProvider);
+            model.textFromImageDataProvider = NULL;
+        }
+    }
+    
 }
 @end

@@ -48,7 +48,10 @@
 		C619425C1D37F0EE0032E2BC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C619425B1D37F0EE0032E2BC /* CoreVideo.framework */; };
 		C61942671D37FA650032E2BC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942661D37FA650032E2BC /* OpenGLES.framework */; };
 		C61942691D37FC050032E2BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942681D37FC050032E2BC /* QuartzCore.framework */; };
-		C625D0041D4726AA00DE38BD /* RenderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C625D0031D4726AA00DE38BD /* RenderFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C625D0181D475EA000DE38BD /* 2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C625D0171D475EA000DE38BD /* 2.mp4 */; settings = {ASSET_TAGS = (); }; };
+		C625D01A1D475EA700DE38BD /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = C625D0191D475EA700DE38BD /* 0.png */; settings = {ASSET_TAGS = (); }; };
+		C625D01C1D475EB400DE38BD /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C625D01B1D475EB400DE38BD /* 1.mp3 */; settings = {ASSET_TAGS = (); }; };
+		C625D01F1D4762FD00DE38BD /* RenderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C625D01E1D4762FD00DE38BD /* RenderFilter.m */; settings = {ASSET_TAGS = (); }; };
 		C6961F2A1D3C76A00054BCBD /* AVAssetTrack+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = C6961F001D3C769F0054BCBD /* AVAssetTrack+Transform.m */; settings = {ASSET_TAGS = (); }; };
 		C6961F2B1D3C76A00054BCBD /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C6961F011D3C769F0054BCBD /* config.json */; settings = {ASSET_TAGS = (); }; };
 		C6961F2C1D3C76A00054BCBD /* config1.json in Resources */ = {isa = PBXBuildFile; fileRef = C6961F021D3C769F0054BCBD /* config1.json */; settings = {ASSET_TAGS = (); }; };
@@ -142,7 +145,10 @@
 		C619425B1D37F0EE0032E2BC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		C61942661D37FA650032E2BC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C61942681D37FC050032E2BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C625D0031D4726AA00DE38BD /* RenderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderFilter.m; path = ../../../../../../../RenderFilter.m; sourceTree = "<group>"; };
+		C625D0171D475EA000DE38BD /* 2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2.mp4; sourceTree = "<group>"; };
+		C625D0191D475EA700DE38BD /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
+		C625D01B1D475EB400DE38BD /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		C625D01E1D4762FD00DE38BD /* RenderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderFilter.m; sourceTree = "<group>"; };
 		C6961EFF1D3C769F0054BCBD /* AVAssetTrack+Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetTrack+Transform.h"; sourceTree = "<group>"; };
 		C6961F001D3C769F0054BCBD /* AVAssetTrack+Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetTrack+Transform.m"; sourceTree = "<group>"; };
 		C6961F011D3C769F0054BCBD /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -213,6 +219,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C625D0191D475EA700DE38BD /* 0.png */,
+				C625D0171D475EA000DE38BD /* 2.mp4 */,
+				C625D01B1D475EB400DE38BD /* 1.mp3 */,
 				302D95EE14D2391D003F00A1 /* MainViewController.h */,
 				302D95EF14D2391D003F00A1 /* MainViewController.m */,
 				302D95F014D2391D003F00A1 /* MainViewController.xib */,
@@ -369,7 +378,7 @@
 				C6961F091D3C769F0054BCBD /* GLModel.m */,
 				C6961F0A1D3C769F0054BCBD /* ReadMe.md */,
 				C6961F0B1D3C769F0054BCBD /* RenderFilter.h */,
-				C625D0031D4726AA00DE38BD /* RenderFilter.m */,
+				C625D01E1D4762FD00DE38BD /* RenderFilter.m */,
 				C6961F0D1D3C769F0054BCBD /* RSAudioChannel.h */,
 				C6961F0E1D3C769F0054BCBD /* RSAudioChannel.mm */,
 				C6961F0F1D3C769F0054BCBD /* RSBaseMedia.h */,
@@ -491,6 +500,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C625D0181D475EA000DE38BD /* 2.mp4 in Resources */,
 				7E7966E41810823500FA85AD /* icon-76.png in Resources */,
 				7E7966DF1810823500FA85AD /* icon-40@2x.png in Resources */,
 				308D05371370CCF300D202BF /* icon-72.png in Resources */,
@@ -511,12 +521,14 @@
 				30B4F30019D5E07200D9F7D8 /* Default-667h.png in Resources */,
 				7E7966DE1810823500FA85AD /* icon-40.png in Resources */,
 				3088BBC1154F3926009F9C59 /* Default@2x~iphone.png in Resources */,
+				C625D01A1D475EA700DE38BD /* 0.png in Resources */,
 				C6961F2C1D3C76A00054BCBD /* config1.json in Resources */,
 				7E7966E21810823500FA85AD /* icon-60.png in Resources */,
 				3088BBC2154F3926009F9C59 /* Default~iphone.png in Resources */,
 				D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */,
 				30B4F30219D5E07200D9F7D8 /* Default-Landscape-736h.png in Resources */,
 				30C1856619D5FC0A00212699 /* icon-60@3x.png in Resources */,
+				C625D01C1D475EB400DE38BD /* 1.mp3 in Resources */,
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
@@ -551,7 +563,7 @@
 				C6961F3B1D3C76A00054BCBD /* RSVideoCompositionInstruction.m in Sources */,
 				C6961F391D3C76A00054BCBD /* RSMVString.m in Sources */,
 				C6961F341D3C76A00054BCBD /* RSBaseMedia.m in Sources */,
-				C625D0041D4726AA00DE38BD /* RenderFilter.m in Sources */,
+				C625D01F1D4762FD00DE38BD /* RenderFilter.m in Sources */,
 				C6961F411D3C76A00054BCBD /* VideoProc.m in Sources */,
 				C6961F361D3C76A00054BCBD /* RSExportSession.m in Sources */,
 				C6961F301D3C76A00054BCBD /* GLModel.m in Sources */,
