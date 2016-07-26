@@ -103,9 +103,9 @@ GLfloat quadVertexData [] = {
         if (item.type == kMediaType_Picture) {
             mediaType = kMediaType_Picture ;
 //           NSString * path =  [[NSBundle mainBundle]pathForResource:@"1" ofType:@"png"];
-//            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
-           NSString * path =  [[NSBundle mainBundle]pathForResource:@"0" ofType:@"png"];
-            UIImage * image = [UIImage imageWithContentsOfFile:path];
+            UIImage * image = [UIImage imageWithContentsOfFile:item.value];
+//           NSString * path =  [[NSBundle mainBundle]pathForResource:@"0" ofType:@"png"];
+//            UIImage * image = [UIImage imageWithContentsOfFile:path];
             model.image = image;
         }else if(item.type ==kMediaType_Text){
             RSMVString *textPic = [[RSMVString alloc]initWithcString:item.value withFontSize:kFontSize withPosition:CGPointMake(item.pointX, item.pointY)];
