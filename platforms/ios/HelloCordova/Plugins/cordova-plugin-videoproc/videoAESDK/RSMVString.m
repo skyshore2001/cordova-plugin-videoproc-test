@@ -40,7 +40,7 @@
     CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5; //0.5 to 1.0,away from black
     return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 }
--(CVPixelBufferRef)convertViewToImage{
+-(UIImage *)convertViewToImage{
                                                                                                                                                                                                                                                                                                                                                                       
     UIGraphicsBeginImageContext(self.bounds.size);
     
@@ -49,7 +49,8 @@
     UIImage*image = UIGraphicsGetImageFromCurrentImageContext();
     
     UIGraphicsEndImageContext();
-    return [self pixelBufferFromCGImage:image.CGImage];
+//    return [self pixelBufferFromCGImage:image.CGImage];
+    return image;
 }
 
 - (CVPixelBufferRef) pixelBufferFromCGImage: (CGImageRef) image
