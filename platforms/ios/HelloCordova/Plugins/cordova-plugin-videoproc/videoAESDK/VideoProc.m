@@ -131,7 +131,7 @@
 #endif
     self.videoComposition = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:self.mixComposition];
     self.videoComposition.frameDuration = CMTimeMake(1, 25);
-    self.videoComposition.renderSize = CGSizeMake(480, 320);
+    self.videoComposition.renderSize = [_mainVideoChunk videoFrameSize];
 #ifdef ImageAndText
     self.videoComposition.instructions = @[instruction];
     self.videoComposition.customVideoCompositorClass = [RSVideoCompositior  class];
