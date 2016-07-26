@@ -49,6 +49,8 @@
 		C61942671D37FA650032E2BC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942661D37FA650032E2BC /* OpenGLES.framework */; };
 		C61942691D37FC050032E2BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C61942681D37FC050032E2BC /* QuartzCore.framework */; };
 		C625D0041D4726AA00DE38BD /* RenderFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C625D0031D4726AA00DE38BD /* RenderFilter.m */; settings = {ASSET_TAGS = (); }; };
+		C625D0061D47369200DE38BD /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C625D0051D47369200DE38BD /* 1.mp3 */; settings = {ASSET_TAGS = (); }; };
+		C625D0081D4736A400DE38BD /* 1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C625D0071D4736A400DE38BD /* 1.mp4 */; settings = {ASSET_TAGS = (); }; };
 		C6961F2A1D3C76A00054BCBD /* AVAssetTrack+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = C6961F001D3C769F0054BCBD /* AVAssetTrack+Transform.m */; settings = {ASSET_TAGS = (); }; };
 		C6961F2B1D3C76A00054BCBD /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = C6961F011D3C769F0054BCBD /* config.json */; settings = {ASSET_TAGS = (); }; };
 		C6961F2C1D3C76A00054BCBD /* config1.json in Resources */ = {isa = PBXBuildFile; fileRef = C6961F021D3C769F0054BCBD /* config1.json */; settings = {ASSET_TAGS = (); }; };
@@ -143,6 +145,8 @@
 		C61942661D37FA650032E2BC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C61942681D37FC050032E2BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C625D0031D4726AA00DE38BD /* RenderFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RenderFilter.m; path = ../../../../../../../RenderFilter.m; sourceTree = "<group>"; };
+		C625D0051D47369200DE38BD /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		C625D0071D4736A400DE38BD /* 1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 1.mp4; sourceTree = "<group>"; };
 		C6961EFF1D3C769F0054BCBD /* AVAssetTrack+Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetTrack+Transform.h"; sourceTree = "<group>"; };
 		C6961F001D3C769F0054BCBD /* AVAssetTrack+Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetTrack+Transform.m"; sourceTree = "<group>"; };
 		C6961F011D3C769F0054BCBD /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config.json; sourceTree = "<group>"; };
@@ -213,6 +217,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C625D0071D4736A400DE38BD /* 1.mp4 */,
+				C625D0051D47369200DE38BD /* 1.mp3 */,
 				302D95EE14D2391D003F00A1 /* MainViewController.h */,
 				302D95EF14D2391D003F00A1 /* MainViewController.m */,
 				302D95F014D2391D003F00A1 /* MainViewController.xib */,
@@ -496,6 +502,7 @@
 				308D05371370CCF300D202BF /* icon-72.png in Resources */,
 				30B4F30119D5E07200D9F7D8 /* Default-736h.png in Resources */,
 				308D05381370CCF300D202BF /* icon.png in Resources */,
+				C625D0081D4736A400DE38BD /* 1.mp4 in Resources */,
 				308D05391370CCF300D202BF /* icon@2x.png in Resources */,
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				7E7966E01810823500FA85AD /* icon-50.png in Resources */,
@@ -520,6 +527,7 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
+				C625D0061D47369200DE38BD /* 1.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

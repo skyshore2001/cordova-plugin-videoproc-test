@@ -117,8 +117,9 @@
     }
     for (ConfigItem *item in self.configInfoArray) {
         if (item.type == kMediaType_Audio) {
-//            NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
-            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
+            NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
+            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:path];
+//            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
             AVMutableCompositionTrack * audioTrack  = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
             AVMutableAudioMixInputParameters *videoParmaters= [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
@@ -151,8 +152,8 @@
     self.exportSession = [[RSExportSession  alloc]initWithAVAssert:self.mixComposition
                                                      withOutPutURL:fileUrl
                                               withVideoComposition:self.videoComposition
-                                                      withAudioMix:nil];
-    self.exportSession.audioMix = _audioMix;
+                                                      withAudioMix:_audioMix];
+//    self.exportSession.audioMix = _audioMix;
     [self.exportSession doExportWithProcess:^(CGFloat process) {
         NSLog(@"process = %f",process);
     } withSuccess:^(AVAssetExportSession *exportSession) {
