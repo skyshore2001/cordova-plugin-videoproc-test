@@ -74,15 +74,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    VideoProc * process = [[VideoProc alloc]init];
-    NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp4"];
-    NSString * jsonpath = [[NSBundle mainBundle]pathForResource:@"config1" ofType:@"json"];
-    NSDictionary * opt = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfFile:jsonpath] options:NSJSONReadingAllowFragments error:nil];
-    [process compose:path withConfig:opt withSuccess:^(NSURL *fileUrl) {
-        NSLog(@"success\n");
-    } withFaild:^(NSString *errorString) {
-        NSLog(@"faild\n");
-    }];
 }
 
 - (void)viewDidUnload

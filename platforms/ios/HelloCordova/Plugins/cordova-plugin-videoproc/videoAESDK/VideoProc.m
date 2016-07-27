@@ -77,8 +77,18 @@ static char videoTrackId ;
 - (NSArray *)_parseJsonString:(NSDictionary *)config
 {
     NSMutableArray * configInfo = [NSMutableArray array];
-    _replaceOrignAudio = [[config objectForKey:@"replaceAudio"]boolValue];
-    _videoVolume = [[config objectForKey:@"videoVolume"]floatValue];
+    if ([config objectForKey:@"replaceAudio"]==nil) {
+        _replaceOrignAudio = false;
+    }else
+    {
+        _replaceOrignAudio = [[config objectForKey:@"replaceAudio"]boolValue];
+    }
+    if ([config objectForKey:@"videoVolume"]==nil) {
+        _videoVolume = 1.0 ;
+    }else
+    {
+        _videoVolume = [[config objectForKey:@"videoVolume"]floatValue]; 
+    }
     if (_videoVolume>1) {
         _videoVolume = 1.0;
     }
@@ -96,7 +106,7 @@ static char videoTrackId ;
         configItem.pointY = [[item objectForKey:@"y"]integerValue];
         configItem.width = [[item objectForKey:@"width"]integerValue];
         configItem.height = [[item objectForKey:@"height"]integerValue];
-        configItem.volume = [[item objectForKey:@"volume"]floatValue];  
+        configItem.volume =[item objectForKey:@"volume"]?[[item objectForKey:@"volume"]floatValue]:1.0;
         [configInfo addObject:configItem];
     }
     return configInfo;
@@ -119,9 +129,9 @@ static char videoTrackId ;
     }
     for (ConfigItem *item in self.configInfoArray) {
         if (item.type == kMediaType_Audio) {
-            NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
-            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:path];
-//            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
+//            NSString * path = [[NSBundle mainBundle]pathForResource:@"1" ofType:@"mp3"];
+//            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:path];
+            RSAudioChannel * audioChannel = [[RSAudioChannel alloc]initWithMediaPath:item.value];
             AVMutableCompositionTrack * audioTrack  = [self.mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
             [audioTrack insertTimeRange:CMTimeRangeMake(kCMTimeZero, self.mainVideoChunk.duration) ofTrack:audioChannel.audioTrack atTime:kCMTimeZero error:nil];
             AVMutableAudioMixInputParameters *videoParmaters= [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];

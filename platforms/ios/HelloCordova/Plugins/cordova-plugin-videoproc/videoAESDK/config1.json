@@ -1,6 +1,5 @@
 {
     "replaceAudio":false,
-    "videoVolume" :0.0,
     "items": [
                   {
                   "type": "audio",
