@@ -5,9 +5,6 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="VideoProc">
-        <param name="android-package" value="com.oliveche.videoproc.VideoProc" />
-    </feature>
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
         <param name="onload" value="true" />
@@ -17,6 +14,9 @@
     </feature>
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="VideoProc">
+        <param name="android-package" value="com.oliveche.videoproc.VideoProc" />
     </feature>
     <allow-intent href="market:*" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />

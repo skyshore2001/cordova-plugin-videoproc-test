@@ -13,10 +13,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"VideoProc\"><param name=\"android-package\" value=\"com.oliveche.videoproc.VideoProc\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -26,6 +22,10 @@
                         },
                         {
                             "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"VideoProc\"><param name=\"android-package\" value=\"com.oliveche.videoproc.VideoProc\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -59,9 +59,6 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
-        "cordova-plugin-videoproc": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
@@ -73,18 +70,13 @@
         },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-videoproc": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
     "dependent_plugins": {},
     "modules": [
-        {
-            "file": "plugins/cordova-plugin-videoproc/www/videoproc.js",
-            "id": "cordova-plugin-videoproc.videoproc",
-            "pluginId": "cordova-plugin-videoproc",
-            "clobbers": [
-                "videoproc"
-            ]
-        },
         {
             "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
             "id": "cordova-plugin-file.DirectoryEntry",
@@ -289,14 +281,22 @@
             "clobbers": [
                 "window.FileTransfer"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-videoproc/www/videoproc.js",
+            "id": "cordova-plugin-videoproc.videoproc",
+            "pluginId": "cordova-plugin-videoproc",
+            "clobbers": [
+                "videoproc"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-whitelist": "1.2.2",
-        "cordova-plugin-videoproc": "1.0.0",
         "cordova-plugin-compat": "1.0.0",
         "cordova-plugin-file": "4.2.0",
         "cordova-plugin-media": "2.3.0",
-        "cordova-plugin-file-transfer": "1.5.1"
+        "cordova-plugin-file-transfer": "1.5.1",
+        "cordova-plugin-videoproc": "1.0.0"
     }
 }

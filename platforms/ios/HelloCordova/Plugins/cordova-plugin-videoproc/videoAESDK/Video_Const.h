@@ -67,7 +67,7 @@ typedef enum {
 }RSVideoQuality;
 
 //视频质量
-#define VideoQuality RSVideoLowQuality
+#define VideoQuality RSVideoHighestQuality
 /**
  *  WeakSelf 
  */
